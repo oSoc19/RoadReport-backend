@@ -33,8 +33,11 @@
 								return;
 							}
 							$report = $_POST['report'];
+							// hard fix:
+							if (!isset($report['picture']))
+								$report['picture'] = '';
 							try {
-								new Report($report['problem'], $report['comment'], $report['location']);
+								new Report($report['problem'], $report['comment'], $report['location'], $report['picture']);
 								echo '{"result":"success"}';
 							} catch (Exception $ex) {
 								echo Result::jsonError("Can't be add: ".$ex->getMessage());

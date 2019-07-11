@@ -9,14 +9,16 @@
 		private $comment;	// string
 		private $location;	// Location
 		private $timestamp;	// int
+		private $picture_link;//char[55]
 
-		function __construct($problem = '', $comment = '', $location = []) {
+		function __construct($problem = '', $comment = '', $location = [], $picture = '') {
 			if (empty($problem) || $location == [])
 				return;
 			$this->setProblem($problem);
 			$this->setComment($comment);
 			$this->setLocation($location['street'], $location['number'], $location['city']);
 			$this->timestamp = time();
+			$this->setPicture($picture);
 			if (!$this->save())
 				throw new Exception("Can't be saved");	// need to be more explicit
 		}
@@ -34,6 +36,19 @@
 		public function setLocation($street, $number, $city)
 		{
 			$this->location = new Location($street, $number, $city);
+		}
+
+		public function setPicture($data)
+		{
+			$data = trim($data);
+			if (empty($data))
+				return;
+			$im = new Image($data, 1920, 1080);
+			$path = "image/".date("Y/m/d/");
+			$filename = $im->md5().".jpg";
+			mkdir($path, 0777, true);
+			$this->picture_link = $path.$filename;
+			$im->save($this->picture_link);
 		}
 
 		public function __set($name, $value)
@@ -91,13 +106,14 @@ SQL;
 			if ($this->rid != null)
 				return true; // Exist?
 			$cxn = API::getConnection();
-			$i = $cxn->prepare("INSERT INTO `report`(`problem`, `comment`, `location`, `timestamp`) VALUES(:problem, :comment, :location, :time)");
+			$i = $cxn->prepare("INSERT INTO `report`(`problem`, `comment`, `location`, `timestamp`, `picture_link`) VALUES(:problem, :comment, :location, :time, :picture)");
 			$this->location->save();
 			$loc = $this->location->getLid();
 			$i->bindParam(':problem', $this->problem, PDO::PARAM_STR, 63);
 			$i->bindParam(':comment', $this->comment, PDO::PARAM_STR, 512);
 			$i->bindParam(':location', $loc, PDO::PARAM_INT);
 			$i->bindParam(':time', $this->timestamp, PDO::PARAM_INT);
+			$i->bindParam(':picture', $this->picture_link, PDO::PARAM_STR, 54);
 			if ($i->execute())
 			{
 				return true;
