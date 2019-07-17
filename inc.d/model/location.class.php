@@ -8,6 +8,8 @@
 		private $street;	//string
 		private $number;	//string
 		private $city;		//string
+		private $longitude;	//float
+		private $latitude;	//float
 		
 		function __construct($street = '', $number = '', $city = '') {
 			if (empty($street)||empty($city))
@@ -34,6 +36,14 @@
 		{
 			$this->city = strim($city);
 		}
+		public function setLongitude($long)
+		{
+			$this->longitude = $long;
+		}
+		public function setLatitude($lat)
+		{
+			$this->latitude = $lat;
+		}
 		public function save()	// potatato function, need to be improve
 		{
 			if ($this->lid != null)
@@ -58,13 +68,35 @@
 		{
 			return $this->lid;
 		}
+		public function getStreet()
+		{
+			return $this->street;
+		}
+		public function getNumber()
+		{
+			return $this->number;
+		}
+		public function getCity()
+		{
+			return $this->city;
+		}
+		public function getLongitude()
+		{
+			return $this->longitude;
+		}
+		public function getLatitude()
+		{
+			return $this->latitude;
+		}
 		public function toArray()
 		{
 			return array(
 				"lid"	=>	$this->lid,
 				"street"=>	$this->street,
 				"number"=>	$this->number,
-				"city"	=>	$this->city
+				"city"	=>	$this->city,
+				"longitude"=>$this->longitude,
+				"latitude"=>$this->latitude
 			);
 		}
 		public function __toString()

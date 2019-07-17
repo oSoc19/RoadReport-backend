@@ -12,8 +12,7 @@
 		public function run()
 		{
 			if (!isset($_GET['query'])){
-					header("Content-Type: application/json");
-				echo Result::jsonError("No query provided");
+				include 'inc.d/script/website.php';
 				return;//Exception? No query
 			}
 			$path = explode('/', substr($_GET["query"], 1));
@@ -48,7 +47,31 @@
 							echo json_encode($res);
 							break;
 						default:
-							echo Result::jsonError("Query is no complete");
+							if (preg_match("/([0-9]{4})\-([0-9]{2})\-([0-9]{2})/", $path[1], $output_date))
+							{
+								if (strtotime($output_date[0]) !== false)
+								{
+									$t = strtotime($output_date[0]);
+									if (isset($_GET['page'])&&is_numeric($_GET['page'])&&$_GET['page']>0)
+									{
+										header("Content-Type: application/ld+json");
+										header("Cache-Control: public, max-age=300");
+										echo Report::openFormat($t, $_GET['page']);
+									}
+									else
+									{
+										header("location: /problem/{$output_date[0]}?page=1");
+									}
+								}
+								else
+								{
+									echo Result::jsonError("The date can't be parsed.");
+								}
+							}
+							else
+							{
+								header("location: /problem/".date("Y-m-d").'?page=1');
+							}
 							break;
 					}
 				break;
