@@ -45,6 +45,22 @@
 							$res = Report::getLast(isset($path[2])?$path[2]: 0, 50);
 							echo json_encode($res);
 							break;
+						case 'update':
+							if (!$this->hasSuperAccess())
+							{
+								echo Result::jsonError("Access forbidden");
+								return;
+							}
+							if (!(isset($_POST['id'])&&isset($_POST['status'])&&is_numeric($_POST['id'])))
+							{
+								echo Result::jsonError("ID or Status not specified");
+								return;
+							}
+							if ($r = Report::get($_POST['id']))
+							{
+								$r->updateStatus($_POST['status']);
+							}
+							break;
 						default:
 							if (preg_match("/([0-9]{4})\-([0-9]{2})\-([0-9]{2})/", $path[1], $output_date))
 							{
@@ -101,6 +117,14 @@
 					echo Result::jsonError("Unkwon Query");
 					break;
 			}
+		}
+		private function hasSuperAccess()
+		{
+			$cxn = API::getConnection();
+			$q = $cxn->prepare("SELECT 'OK' as `result` FROM `iptable_whitelist` WHERE `ip_address` = :ip");
+			$q->bindParam(':ip', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR, 15);
+			$q->execute();
+			return !!$q->fetch(PDO::FETCH_ASSOC);
 		}
 		public static function getAPIKey($api)
 		{

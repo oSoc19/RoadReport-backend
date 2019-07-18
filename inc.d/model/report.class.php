@@ -10,6 +10,8 @@
 		private $location;	// Location
 		private $timestamp;	// int
 		private $picture_link;//char[55]
+		private $status;
+		private $status_date;
 
 		function __construct($problem = '', $comment = '', $location = [], $picture = '') {
 			if (empty($problem) || $location == [])
@@ -38,6 +40,18 @@
 			$this->location = new Location($street, $number, $city);
 		}
 
+		public function updateStatus($status)
+		{
+			$this->status = strtoupper(trim($status));
+			$this->status_date = time();
+			$cxn = API::getConnection();
+			$q = $cxn->prepare("UPDATE `report` SET `status` = :s, `status_date` = :sd WHERE `rid` = :id LIMIT 1");
+			$q->bindParam(':s', $this->status, PDO::PARAM_STR);
+			$q->bindParam(':sd', $this->status, PDO::PARAM_INT);
+			$q->bindValue(':id', $this->getID());
+			return !!$q->execute();
+		}
+
 		public function setPicture($data)
 		{
 			$data = trim($data);
@@ -59,6 +73,40 @@
 				call_user_func(array($this->location, 'set'.substr($name, 3)), $value);
 		}
 
+		public static function get($id)
+		{
+			if (!is_numeric($id))
+				return false;
+			$cxn = API::getConnection();
+			$sql = <<<SQL
+				SELECT 
+					`r`.`rid`, 
+					`r`.`problem`, 
+					`r`.`comment`, 
+					`r`.`timestamp`, 
+					`r`.`status`, 
+					`r`.`status_date`, 
+					`l`.`lid` AS `locLid`, 
+					`l`.`street` AS `locStreet`, 
+					`l`.`number` AS `locNumber`, 
+					`l`.`city` AS `locCity`, 
+					`l`.`longitude` AS `locLongitude`, 
+					`l`.`latitude` AS `locLatitude` 
+				FROM 
+					`report` AS `r` 
+				INNER JOIN 
+					`location` AS `l`
+					ON (`r`.`location` = `l`.`lid`)
+				WHERE
+					`r`.`rid` = :id
+				LIMIT 1
+SQL;
+			$s = $cxn->prepare($sql);
+			$s->bindParam(':id', $id, PDO::PARAM_INT);
+			$s->execute();
+			return $s->fetch(PDO::FETCH_CLASS, __CLASS__);
+		}
+
 		public static function getLast($from = 0, $limit = 50)
 		{
 			// exception nan | math max
@@ -69,6 +117,8 @@
 					`r`.`problem`, 
 					`r`.`comment`, 
 					`r`.`timestamp`, 
+					`r`.`status`, 
+					`r`.`status_date`, 
 					`l`.`lid` AS `locLid`, 
 					`l`.`street` AS `locStreet`, 
 					`l`.`number` AS `locNumber`, 
@@ -109,6 +159,8 @@ SQL;
 					`r`.`problem`, 
 					`r`.`comment`, 
 					`r`.`timestamp`, 
+					`r`.`status`, 
+					`r`.`status_date`, 
 					`l`.`lid` AS `locLid`, 
 					`l`.`street` AS `locStreet`, 
 					`l`.`number` AS `locNumber`, 
@@ -160,9 +212,11 @@ SQL;
 			foreach ($probs as $p) {
 				$l = $p->getLocation();
 				$a = array(
-					'@id' => "/problem/".$page,
+					'@id' => "/problem/".$p->getID(),
 					'event' => $p->getProblem(),
-					'currentStatus' => "OTHER",
+					'currentStatus' => array(
+						'status' => $p->getStatus()
+					),
 					'comment' => $p->getProblem(),
 					'published' => date(DATE_RFC3339, $p->getTime()),
 					'location' => array(
@@ -195,6 +249,10 @@ SQL;
 						'wkt' => "POINT ({$l->getLongitude()} {$l->getLatitude()})"
 					)
 				);
+				if (!empty($p->getStatusDate())&&$p->getStatusDate()>0)
+				{
+					$a['currentStatus']['update'] = date(DATE_RFC3339, $p->getStatusDate());
+				}
 				if (!empty($p->getPicture()))
 				{
 					$a['picture'] = array(
@@ -246,6 +304,14 @@ SQL;
 		public function getLocation()
 		{
 			return $this->location;
+		}
+		public function getStatus()
+		{
+			return $this->status;
+		}
+		public function getStatusDate()
+		{
+			return $this->status_date;
 		}
 
 		public function save()
