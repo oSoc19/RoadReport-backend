@@ -12,7 +12,8 @@
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
 	<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/js/chart.min.js"></script>    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
+	<script type="text/javascript" src="/js/chart.min.js"></script>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark bg-niceblue">
@@ -172,7 +173,7 @@
 		</div>
 		<div id="map"></div>
 		<script type="text/javascript">
-			mapboxgl.accessToken = 'pk.eyJ1IjoibGExNzkzMzEiLCJhIjoiY2p5NWwwY3hvMDgydTNtbXZ4NHBjNjI3dyJ9.EielE76GDtb81oiYEFVm-w';
+			mapboxgl.accessToken = '<?=API::getAPIKey('mapbox')?>';
 			var map = new mapboxgl.Map({
 				container: 'map',
 				style: 'mapbox://styles/la179331/cjy5kdw570s601cpkb740uatr',

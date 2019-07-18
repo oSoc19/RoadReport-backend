@@ -7,7 +7,6 @@
 			global $settings;
 			if ($settings['json_post'])
 				API::JSONInput2POST();
-			//self::getConnection();
 		}
 		public function run()
 		{
@@ -94,13 +93,21 @@
 					}
 					break;
 				case 'monitor':
-					include 'inc.d/script/monitor.php';
+				case 'dashboard':
+					include 'inc.d/script/'.$path[0].'.php';
 					break;
 				default:
 					header("Content-Type: application/json");
 					echo Result::jsonError("Unkwon Query");
 					break;
 			}
+		}
+		public static function getAPIKey($api)
+		{
+			global $settings;
+			if (isset($settings['api'][$api]))
+				return $settings['api'][$api];
+			return false;
 		}
 		public static function getConnection()
 		{
@@ -119,10 +126,12 @@
 				return; // exception?
 			// remove useless react object like: somthing:{content:"value"}
 			$json = json_decode($json, true);
-			$json = array_map(function($value)
+			$json = @array_map(function($value)
 			{
 				return (is_array($value)&&count($value)==1&&isset($value['constent']))?$value['content']:$value;
 			}, $json);
+			if ($json == null)
+				return;
 			$_POST = $json;	// Override global $_POST variable
 		}
 	}

@@ -4,12 +4,20 @@
 	$settings = array(
 		'json_post' => true,
 
+		'area'	=> array(
+			'cache_ratio' => 6000
+		),
+
 		'my' => array(
 			"hostname" => "localhost",
 			"database" => "",
 			"username" => "",
 			"password" => "",
 			"cxn"	   => null
+		),
+
+		'api' => array(
+			'mapbox'	=> ""
 		)
 	);
 	?>

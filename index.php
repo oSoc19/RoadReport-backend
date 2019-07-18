@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	/*
 	 * Including all modules
 	 */
@@ -10,6 +11,7 @@
 	include 'inc.d/model/result.class.php';
 	include 'inc.d/model/stat.class.php';
 	include 'inc.d/model/api.class.php';
+	include 'inc.d/model/admin.class.php';
 
 	/*
 	 * Create a new instance of the API and run it
