@@ -34,21 +34,15 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#report">{{MENU_REPORT}}</a>
 					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="statsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{MENU_STATS}}</a>
-						<div class="dropdown-menu" aria-labelledby="statsDropdown">
-							<a href="#statistics" class="dropdown-item">Basic</a>
-							<a href="#map" class="dropdown-item">Map</a>
+					<li class="nav-item">
+						<a href="#statistics"><button>{{MENU_STATS}}</button></a>
+					</li>
+					<li class="nav-item">
+						<a href="#map"><button>{{MENU_MAP}}</button></a>
 						</div>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#about">{{MENU_ABOUT}}</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#contact">{{MENU_CONTACT}}</a>
-					</li>
-					<li class="nav-item">
-						<a href="#download"><button>{{MENU_DOWNLOAD}}</button></a>
+						<a href="#lang" data-lang="en" title="English Version">EN</a> | <a href="#lang" data-lang="nl" title="Nederlandse Versie">NL</a>
 					</li>
 				</ul>
 			</div>
@@ -185,25 +179,21 @@
 				center: [3.727194, 51.056457],
 				zoom: 13.5
 			});
-			
+
 		</script>
 	</section>
 	<section id="about">
 		<h1 class="title">{{TITLE_ABOUT}}</h1>
 		<article class="container">
-		<div class="row">{{CONTENT_ABOUT}}</div>
+		<div class="row">
+			{{CONTENT_ABOUT}}
+		</div>
 		<div class="row">
 			<div class="col">{{CONTENT_VISION}}</div>
 			<div class="w-100 d-lg-none d-xl-none"></div>
 			<div class="col">{{CONTENT_MISSION}}</div>
 		</div>
 		</article>
-	</section>
-	<section id="contact">
-		<h1 class="title">{{TITLE_CONTACT}}</h1>
-	</section>
-	<section id="download">
-		<h1 class="title">{{TITLE_DOWNLOAD}}</h1>
 	</section>
 	<footer>
 		<div class="container">
