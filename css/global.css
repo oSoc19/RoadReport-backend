@@ -9,6 +9,7 @@ nav {
 	top: 0px;
 	width: 100%;
 	z-index: 1000001;
+	transition: width .2s;
 }
 .navbar-nav {
 	align-items: center;
@@ -36,14 +37,40 @@ section {
 img, canvas {
 	max-width: 100%;
 }
+footer {
+	background: #444;
+	color: #EEE;
+	min-height: 200px;
+	padding: 32px 0px;
+}
+footer a:hover{
+	color: #FFF;
+	text-decoration: underline;
+}
+footer p {
+	font-size: 12px;
+}
 .title {
 	margin: 1em 0em;
 	text-align: center;
+}
+.social {
+	color: #333;
+	display: inline-block;
+	font-size: 56px;
+	padding: 4px 8px;
+	text-shadow: -1px -1px 0px #0007, 1px 1px 0px #FFF3;
+	transition: .4s;
+}
+.social:hover {
+	color: #EEF;
+	text-shadow: 1px 1px 0px #0003, -1px -1px 0px #FFF3, 0px 0px 10px #FFF3;
 }
 #report {
 	background: #E5E3DF;
 	min-height: 100vh;
 	padding-top: calc(120px/1 + 5vh/1);
+	/*transition: .2s;*/
 }
 #statistics canvas {
 	width: 100%!important;
@@ -82,11 +109,56 @@ img, canvas {
 	color: white;
 	font-size: 16pt;
 	padding: 8px 32px;
+	min-width: 50%;
+}
+#app input[type='submit'].load {
+	color: #FFF0;
+	min-width: 100%;
+	transition: 2s;
+}
+#app input[type='submit'].loading {
+	animation: 2s test linear infinite;
+	background: repeating-linear-gradient(45deg, #8add82 0px, #8add82 16px, #7ee873 16px, #54994d 32px);
+	background-size: 46px 48px;
+	color: #FFF0;
+	min-width: 100%;
+	transition: 2s;
+}
+@keyframes test {
+	from {
+		background-position: 0px 0px;
+	}
+	to {
+		background-position: -46px 0px;
+	}
+}
+#street_search_result {
+	background: #FFFC;
+	border: 1px solid #3337;
+	border-top: none;
+	display: none;
+	position: absolute;
+}
+#street_search_result .result {
+	cursor: pointer;
+	padding: 4px 16px;
+}
+#street_search_result .result:hover {
+	background: #4992d377;
 }
 #map {
 	height: 360px;
 	margin-top: 48px;
 	width: 100%;
+}
+
+#heart {
+	transition: transform 1s cubic-bezier(1, -1, 0, 2);
+}
+
+span:hover #heart {
+	color: #D11;
+	transform: scale(2) rotate(4deg);
 }
 
 @media (max-width: 460px) {
@@ -97,7 +169,7 @@ img, canvas {
 }
 @media (max-width: 768px) {
 	nav {
-		min-height: 64px;
+		min-height: 64px!important;
 	}
 	#app {
 		min-height: calc(100vh/1 - 64px/1 + 5%/1);

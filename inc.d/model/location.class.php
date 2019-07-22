@@ -11,12 +11,14 @@
 		private $longitude;	//float
 		private $latitude;	//float
 		
-		function __construct($street = '', $number = '', $city = '') {
+		function __construct($street = '', $number = '', $city = '', $long = 0, $lat = 0) {
 			if (empty($street)||empty($city))
 				return;
 			$this->setStreet($street);
 			$this->setNumber($number);
 			$this->setCity($city);
+			$this->setLongitude($long);
+			$this->setLatitude($lat);
 			$this->save();
 		}
 
@@ -26,15 +28,15 @@
 		}
 		public function setStreet($street)
 		{
-			$this->street = strim($street);
+			$this->street = htmlspecialchars(strim($street));
 		}
 		public function setNumber($nb)
 		{
-			$this->number = strim($nb);
+			$this->number = htmlspecialchars(strim($nb));
 		}
 		public function setCity($city)
 		{
-			$this->city = strim($city);
+			$this->city = htmlspecialchars(strim($city));
 		}
 		public function setLongitude($long)
 		{
@@ -56,10 +58,12 @@
 			$s->execute();
 			if ($r = $s->fetch(PDO::FETCH_ASSOC))
 				return $this->lid = $r['lid'];
-			$i = $cxn->prepare("INSERT INTO `location`(`street`, `number`, `city`) VALUES(:street, :number, :city)");
+			$i = $cxn->prepare("INSERT INTO `location`(`street`, `number`, `city`, `longitude`, `latitude`) VALUES(:street, :number, :city, :lon, :lat)");
 			$i->bindParam(':street', $this->street, PDO::PARAM_STR, 63);
 			$i->bindParam(':number', $this->number, PDO::PARAM_STR, 8);
 			$i->bindParam(':city', $this->city, PDO::PARAM_STR, 63);
+			$i->bindValue(':lon', strval($this->longitude), PDO::PARAM_STR);
+			$i->bindValue(':lat', strval($this->latitude), PDO::PARAM_STR);
 			if ($i->execute())
 				return $cxn->lastInsertId();
 			return -1; //Exception

@@ -1,0 +1,27 @@
+{
+	"LANGCODE": "nl_BE",
+	"ISO6391":	"nl",
+
+	"MENU_REPORT":	"Rapportage",
+	"MENU_STATS":	"Statistiek",
+	"MENU_ABOUT":	"Over",
+	"MENU_CONTACT":	"Contact",
+	"MENU_DOWNLOAD":"Downloaden",
+
+	"PROBLEM":		"Probleem",
+	"ADDRESS":		"Adres",
+	"HOUSENUMBER":	"Huisnummer",
+	"COMMENT":		"Commentaar",
+	"PICTURE":		"Plaatje",
+	"SEND_REPORT":	"Verzend Rapport",
+
+	"TITLE_STATS":	"Statistiek",
+	"TITLE_ABOUT":	"Over Ons",
+	"TITLE_CONTACT":"Contact",
+	"TITLE_DOWNLOAD":"Download Nu",
+
+
+	"CONTENT_ABOUT":"<div class=\"col text-justify\"><p>Road Report is een project van TMaaS en ontwikkeld door de Guardian of the Road bij Open Summer of Code 2019.</p><p>Road Report is de naam van een app en een website die burgers stimuleert om op een andere manier deel te nemen aan stedelijke mobiliteit en hen op een eenvoudige, effectieve en snelle manier in contact brengt met de lokale autoriteiten.</p><p>Burgers kunnen rechtstreeks met de stad Gent communiceren over openbare mobiliteitsproblemen, zoals kuilen, gebroken stoeptegels of losse stoepranden, om zo de kwaliteit van de straten, fietspaden en wegen in steden te verbeteren.</p></div><div class=\"col-md-auto\"><ul><li>Human-centered and inclusive design</li><li>Fast, Scalable and Reliable</li><li>The holistic idea of citizenship</li><li>Crowdsourcing</li><li>Emotional context</li><li>Open Data</li><li>Open Government</li><li>User-friendly</li><li>Easy and effective UX</li></ul></div>",
+	"CONTENT_VISION":"<h3>Visie</h3><p>De visie van Road Report is om een nieuw, innovatief, gebruikersgericht instrument te worden dat gegevens en informatie van burgers over stedelijke mobiliteitsproblemen omzet in waardevolle kennis voor de lokale autoriteiten van kleine en middelgrote steden.</p>",
+	"CONTENT_MISSION":"<h3>Missie</h3><p>Road Report app en website proberen de frustraties van burgers om te zetten in reliëfs door het gebruik van een dienst die veel mensen kan helpen die zich meestal per fiets of te voet verplaatsen.</p><p>Road Report blijkt een innovatieve en servicegerichte oplossing te zijn om informatie te verzamelen van burgers die te maken hebben met mobiliteitsproblemen.</p><p><p>Road Report probeert zich te richten op gebruikers die te maken hebben met bijna alledaagse mobiliteitsproblemen door middel van verschillende online en offline activiteiten, waardoor lokale overheden onder druk worden gezet en worden uitgedaagd om snel en op een effectieve manier te handelen.</p>"
+}

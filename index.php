@@ -3,8 +3,14 @@
 	/*
 	 * Including all modules
 	 */
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
+	require 'inc.d/model/phpmailer/Exception.php';
+	require 'inc.d/model/phpmailer/PHPMailer.php';
+	require 'inc.d/model/phpmailer/SMTP.php';
 	include 'inc.d/func.php';
 	include 'inc.d/settings.php';
+	include 'inc.d/model/lang.class.php';
 	include 'inc.d/model/image.class.php';
 	include 'inc.d/model/location.class.php';
 	include 'inc.d/model/report.class.php';

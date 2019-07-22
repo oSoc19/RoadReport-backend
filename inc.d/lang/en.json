@@ -1,0 +1,26 @@
+{
+	"LANGCODE": "en_EU",
+	"ISO6391":	"en",
+
+	"MENU_REPORT":	"Report",
+	"MENU_STATS":	"Statistics",
+	"MENU_ABOUT":	"About",
+	"MENU_CONTACT":	"Contact",
+	"MENU_DOWNLOAD":"Download",
+
+	"PROBLEM":		"Problem",
+	"ADDRESS":		"Address",
+	"HOUSENUMBER":	"Number",
+	"COMMENT":		"Comment",
+	"PICTURE":		"Picture",
+	"SEND_REPORT":	"Send Report",
+
+	"TITLE_STATS":	"Statistics",
+	"TITLE_ABOUT":	"About",
+	"TITLE_CONTACT":"Contact",
+	"TITLE_DOWNLOAD":"Download now",
+
+	"CONTENT_ABOUT":"<div class=\"col text-justify\"><p>Road Report is a project powered by TMaaS and developed by the Guardian of the Road at Open Summer of Code 2019.</p><p>Road Report is the name of an app and a website that stimulates citizens to participate in urban mobility in a different way, putting them in contact with local authorities in an easy, effective and fast way.</p><p>Citizens can directly communicate with the city of Ghent about public mobility problems, such as potholes, broken paving slabs or loose kerb stones, in order to improve the quality of the streets, cycling paths, and roads in cities.</p></div><div class=\"col-md-auto\"><ul><li>Human-centered and inclusive design</li><li>Fast, Scalable and Reliable</li><li>The holistic idea of citizenship</li><li>Crowdsourcing</li><li>Emotional context</li><li>Open Data</li><li>Open Government</li><li>User-friendly</li><li>Easy and effective UX</li></ul></div>",
+	"CONTENT_VISION":"<h3>Vision</h3><p>Road Report’s vision is to become a new, innovative, user-centered tool that transforms citizen data and information about urban mobility problems into valuable knowledge for the local authorities of small and medium cities.</p>",
+	"CONTENT_MISSION":"<h3>Mission</h3><p>Road Report app and website attempt to transform citizens’ frustrations into reliefs through the use of a service that can help many people who usually move by bicycle or on foot.</p><p>Road Report appears as an innovative and service-centered solution to collect information from the citizens affected by public mobility problems.</p><p>Road Report attempts to target users who face almost everyday public mobility problems through several online and offline activities putting pressure on and challenging local authorities to act quickly and in an effective way.</p>"
+}

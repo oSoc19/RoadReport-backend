@@ -64,6 +64,7 @@
 			$geoobj = json_decode($geojson, true);
 			$minX = $minY = 180;
 			$maxX = $maxY = -180;
+			$ratio = $settings['area']['cache_ratio'];
 			$polygons = array();
 			for ($i=0; $i < count($geoobj['features']); $i++) { 
 				$polygons[$i] = array();
@@ -77,12 +78,13 @@
 					array_push($polygons[$i], $points[$j][1]);
 				}
 			}
-			$im = imagecreatetruecolor(floor(($maxX - $minX)*$settings['area']['cache_ratio']), floor(($maxY-$minY)*$settings['area']['cache_ratio']));
+			$im_h = ceil(($maxY-$minY)*$ratio);
+			$im = imagecreatetruecolor(ceil(($maxX - $minX)*$ratio), $im_h);
 			$red = imagecolorallocate($im, 255, 0, 0);
 			for ($i=0; $i < count($polygons); $i++) {
 				for ($j=0; $j < count($polygons[$i]); $j+=2) {
-					$polygons[$i][$j] = (int) round(($polygons[$i][$j] - $minX) * $settings['area']['cache_ratio']);
-					$polygons[$i][$j+1] = (int) round(($polygons[$i][$j+1] - $minY) * $settings['area']['cache_ratio']);
+					$polygons[$i][$j] = (int) round(($polygons[$i][$j] - $minX) * $ratio);
+					$polygons[$i][$j+1] = (int) $im_h - round(($polygons[$i][$j+1] - $minY) * $ratio);
 				}
 				imagefilledpolygon($im, $polygons[$i], count($polygons[$i])/2, $red);
 			}
@@ -96,6 +98,12 @@
 			$qy = $cxn->prepare("UPDATE `params` SET `v` = :oy WHERE `k` = 'area_offsetY' LIMIT 1");
 			$qy->bindParam(':oy', $minY, PDO::PARAM_STR);
 			$qy->execute();
+			$qw = $cxn->prepare("UPDATE `params` SET `v` = :w WHERE `k` = 'area_width' LIMIT 1");
+			$qw->bindValue(':w', ($maxX-$minX), PDO::PARAM_STR);
+			$qw->execute();
+			$qh = $cxn->prepare("UPDATE `params` SET `v` = :h WHERE `k` = 'area_height' LIMIT 1");
+			$qh->bindValue(':h', ($maxY-$minY), PDO::PARAM_STR);
+			$qh->execute();
 			$qa = $cxn->prepare("UPDATE `params` SET `v` = :geoj WHERE `k` = 'area' LIMIT 1");
 			$qa->bindParam(':geoj', $geojson, PDO::PARAM_STR);
 			return !!$qa->execute();

@@ -18,7 +18,7 @@
 				return;
 			$this->setProblem($problem);
 			$this->setComment($comment);
-			$this->setLocation($location['street'], $location['number'], $location['city']);
+			$this->setLocation($location['street'], $location['number'], $location['city'], $location['longitude'], $location['latitude']);
 			$this->timestamp = time();
 			$this->setPicture($picture);
 			if (!$this->save())
@@ -27,17 +27,17 @@
 
 		public function setProblem($problem)
 		{
-			$this->problem = strim($problem);
+			$this->problem = htmlspecialchars(strim($problem));
 		}
 
 		public function setComment($comment)
 		{
-			$this->comment = strim($comment);
+			$this->comment = htmlspecialchars(strim($comment));
 		}
 
-		public function setLocation($street, $number, $city)
+		public function setLocation($street, $number, $city, $long, $lat)
 		{
-			$this->location = new Location($street, $number, $city);
+			$this->location = new Location($street, $number, $city, $long, $lat);
 		}
 
 		public function updateStatus($status)
@@ -60,7 +60,8 @@
 			$im = new Image($data, 1920, 1080);
 			$path = "image/".date("Y/m/d/");
 			$filename = $im->md5().".jpg";
-			mkdir($path, 0777, true);
+			if (!is_dir($path))
+				mkdir($path, 0777, true);
 			$this->picture_link = $path.$filename;
 			$im->save($this->picture_link);
 		}
@@ -202,7 +203,7 @@ SQL;
 					'@id' => "$u?page=".urlencode($page),
 					'@type' => "PartialCollectionView",
 					'first' => "$u?page=1",
-					'last' => "$u?page=".floor($ct/50),
+					'last' => "$u?page=".max( 1,floor($ct/50)),
 				)
 			);
 			if ($page > 1)

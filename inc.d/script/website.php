@@ -1,19 +1,24 @@
+<?php
+	//
+	?>
 <!DOCTYPE html>
-<html>
+<html lang="<?=Lang::get('ISO6391')?>">
 <head>
 	<title>Road Report</title>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-	<!--viewport-->
 	<!--ogp-->
 	<link rel="icon" type="image/png" href="/favicon.png" />
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/global.css?t=<?=time()?>"/>
-	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
+	<link rel="stylesheet" href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css'/>
+	<link rel="stylesheet" type="text/css" href="/css/fork-awesome.min.css"/>
 	<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/js/chart.min.js"></script>
 	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
+	<script type="text/javascript" src="/js/main.js?t=<?=time()?>"></script>
+	<script type="text/javascript">var best_area=<?=json_encode(API::getAreaData())?>;</script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-md navbar-dark bg-niceblue">
@@ -27,95 +32,95 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="nav-item">
-						<a class="nav-link" href="#report">Report</a>
+						<a class="nav-link" href="#report">{{MENU_REPORT}}</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="statsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Statistics</a>
+						<a class="nav-link dropdown-toggle" href="#" id="statsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{MENU_STATS}}</a>
 						<div class="dropdown-menu" aria-labelledby="statsDropdown">
-							<a class="dropdown-item">Basic</a>
+							<a href="#statistics" class="dropdown-item">Basic</a>
+							<a href="#map" class="dropdown-item">Map</a>
 						</div>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#about">About</a>
+						<a class="nav-link" href="#about">{{MENU_ABOUT}}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#contact">Contact</a>
+						<a class="nav-link" href="#contact">{{MENU_CONTACT}}</a>
 					</li>
 					<li class="nav-item">
-						<a href="#downlaod"><button>Download</button></a>
+						<a href="#download"><button>{{MENU_DOWNLOAD}}</button></a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<section id="report">
-		<form id="app">
+		<form id="app" method="POST">
 			<fieldset>
-				<legend>Problem</legend>
-				<select>
-					<optgroup label="Bicycle path/footpath:">
-						<option>Hole in footpath</option>
-						<option>Hole in bicycle path</option>
-						<option>Damaged footpath</option>
-						<option>Damaged bicycle path</option>
-						<option>Unclear marking pedestrian crossing</option>
-						<option>Unclear marking bicycle path</option>
-						<option>Snow, frost, slipperiness</option>
-						<option>Glass</option>
-						<option>Blocked guiding lines for blind people</option>
-						<option>Obstructive intake of footpath</option>
-						<option>Obstructive intake of bicycle path</option>
-					</optgroup>
-					<optgroup label="Signalisation:">
-						<option>Sign gone/moved</option>
-						<option>Traffic light defect</option>
-						<option>Traffic light button defect</option>
-						<option>Problem with VMS sign</option>
-						<option>Bicycle counter defect</option>
-					</optgroup>
-					<optgroup label="Bicycle rack:">
-						<option>Always full</option>
-						<option>In need of reparation</option>
-						<option>Weed / trash</option>
-						<option>Left bicycles</option>
-						<option>Suggestion for sheltered/indoor bicycle rack</option>
-					</optgroup>
-					<optgroup label="Cycling infrastructure:">
-						<option>Broken cycling pump</option>
-						<option>Broken/empty cycling lights vending machine</option>
-						<option>Broken repair machine</option>
-					</optgroup>
-					<optgroup label="Other:">
-						<option>Unaccessible footpath for wheelchairs</option>
-						<option>Dangerous crossing for cyclists/pedestrians</option>
-						<option>Dangerous situation for cyclists/pedestrians</option>
-						<option>Crowdedness on footpaths</option>
-						<option>Missing/defect street lights</option>
-						<option>Other</option>
-					</optgroup>
+				<legend>{{PROBLEM}}</legend>
+				<select name="problem">
+				<optgroup label="Fietspad/voetpad:">
+					<option>Gat in het voetpad</option>
+					<option>Gat in het fietspad</option>
+					<option>Beschadiging van het voetpad</option>
+					<option>Beschadiging van het fietspad</option>
+					<option>Markering zebrapad</option>
+					<option>Markering fietspad</option>
+					<option>Sneeuw, ijzel, gladheid</option>
+					<option>Glas </option>
+					<option>Blindengeleidelijnen versperd</option>
+					<option>Hinderlijke inname van voetpad</option>
+					<option>Hinderlijke inname van fietspad</option>
+				</optgroup>
+				<optgroup label="Signalisatie:">
+					<option>Bord weg/verplaatst</option>
+					<option>Verkeerslicht defect</option>
+					<option>Drukknop verkeerslicht defect</option>
+					<option>Probleem met VGS bord</option>
+					<option>Fietstelpaal defect</option>
+				</optgroup>
+				<optgroup label="Fietsenstalling:">
+					<option>Overvol</option>
+					<option>Te herstellen</option>
+					<option>Onkruid / zwerfvuil</option>
+					<option>Achtergelaten fietsen</option>
+					<option>Suggestie voor locatie overdekte/inpandige fietsenstalling</option>
+				</optgroup>
+				<optgroup label="Fietsinfrastructuur:">
+					<option>Fietspomp kapot</option>
+					<option>Herstelzuil kapot</option>
+					<option>Fietslichtjes automaat leeg/kapot</option>
+				</optgroup>
+				<optgroup label="Andere:">
+					<option>Ontoegankelijk voetpad voor rolstoelgebruikers</option>
+					<option>Gevaarlijk kruispunt voor fietsers/voetgangers</option>
+					<option>Gevaarlijke situatie voor fietsers/voetgangers</option>
+					<option>Defecte/ontbrekende straatverlichting</option>
+					<option>Drukte op het voetpad</option>
+					<option>Andere</option>
+				</optgroup>
 				</select>
-				<!--<select placeholder="Category">
-					<option value="0">Bicycle path</option>
-					<option>Signalisation</option>
-					<option>Bicycle rack</option>
-					<option>Cycling infrastructure</option>
-					<option>Other</option>
-				</select>
-				<select placeholder="Event"></select>-->
 			</fieldset>
 			<fieldset>
-				<legend>Address</legend>
+				<legend>{{ADDRESS}}</legend>
 				<div style="display: flex;">
-					<input type="text" name="street" placeholder="Street" />
-					<input type="text" name="numer" placeholder="Number" style="width: 92px; margin-left: 8px;" />
+					<input type="hidden" name="lon" />
+					<input type="hidden" name="lat" />
+					<input type="hidden" name="city"/>
+					<input type="text" name="street" placeholder="Street" autocomplete="off" />
+					<div id="street_search_result"></div>
+					<input type="text" name="number" placeholder="{{HOUSENUMBER}}" style="width: 92px; margin-left: 8px;" />
 				</div>
-				<input type="text" name="city" placeholder="City" />
 			</fieldset>
 			<fieldset>
-				<legend>Comment</legend>
-				<input type="text" name="comment" placeholder="Comment"/>
+				<legend>{{COMMENT}}</legend>
+				<input type="text" name="comment" placeholder="{{COMMENT}}"/>
 			</fieldset>
-			<input type="submit" value="Send Report"/>
+			<fieldset>
+				<legend>{{PICTURE}}</legend>
+				<input type="file" name="picture" accept="image/*" />
+			</fieldset>
+			<input type="submit" name="submit" value="{{SEND_REPORT}}"/>
 		</form>
 		<center style="margin-top: 64px;">
 			<img src="image/assets/itunes_store_logo.svg" height="48" />
@@ -124,7 +129,7 @@
 	</section>
 	<section id="statistics">
 		<div class="container">
-			<h1 class="title">Statistics</h1>
+			<h1 class="title">{{TITLE_STATS}}</h1>
 			<div class="row text-center">
 				<div class="col">
 					<canvas id="stat_problem_render" height="300" width="600"></canvas>
@@ -184,50 +189,44 @@
 		</script>
 	</section>
 	<section id="about">
-		<h1 class="title">About</h1>
+		<h1 class="title">{{TITLE_ABOUT}}</h1>
 		<article class="container">
-			<div class="row">
-				<div class="col text-justify">Road Report is a project powered by TMaaS and developed by the Guardian of the Road at Open Summer of Code 2019.<br />
-		<br />
-		Road Report is the name of an app and a website that stimulates citizens to participate in urban mobility in a different way, putting them in contact with local authorities in an easy, effective and fast way.<br />
-		<br />
-		Citizens can directly communicate with the city of Ghent about public mobility problems, such as potholes, broken paving slabs or loose kerb stones, in order to improve the quality of the streets, cycling paths, and roads in cities.
-			</div>
-			<div class="col-md-auto">
-				<ul>
-					<li>Human-centered and inclusive design</li>
-					<li>Fast, Scalable and Reliable</li>
-					<li>The holistic idea of citizenship</li>
-					<li>Crowdsourcing</li>
-					<li>Emotional context</li>
-					<li>Open Data</li>
-					<li>Open Government</li>
-					<li>User-friendly</li>
-					<li>Easy and effective UX</li>
-				</ul>
-			</div>
-		</div>
+		<div class="row">{{CONTENT_ABOUT}}</div>
 		<div class="row">
-			<div class="col">
-				<h3>Vision</h3>
-				<p>Road Report’s vision is to become a new, innovative, user-centered tool that transforms citizen data and information about urban mobility problems into valuable knowledge for the local authorities of small and medium cities.</p>
-			</div>
+			<div class="col">{{CONTENT_VISION}}</div>
 			<div class="w-100 d-lg-none d-xl-none"></div>
-			<div class="col">
-				<h3>Mission</h3>
-				<p>Road Report app and website attempt to transform citizens’ frustrations into reliefs through the use of a service that can help many people  who usually move by bicycle or on foot.</p>
-				<p>Road Report appears as an innovative and service-centered solution to collect information from the citizens affected by public mobility problems.</p>
-				<p>Road Report attempts to target users who face almost everyday public mobility problems through several online and offline activities putting pressure on and challenging local authorities to act quickly and in an effective way.</p>
-			</div>
+			<div class="col">{{CONTENT_MISSION}}</div>
 		</div>
 		</article>
 	</section>
 	<section id="contact">
-		<h1 class="title">Contact</h1>
+		<h1 class="title">{{TITLE_CONTACT}}</h1>
 	</section>
 	<section id="download">
-		<h1 class="title">Download now</h1>
+		<h1 class="title">{{TITLE_DOWNLOAD}}</h1>
 	</section>
-	<footer></footer>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<p>This project is co-financed by the European Regional and Development Fund through the Urban Innovative Actions Initiative. Urban Innovative Actions is an Initiative of the European Union that provides urban areas throughout Europe with resources to test new and unproven solutions to address urban challenges. Based on article 8 of ERDF, the Initiative has a total ERDF budget of EUR 372 million for 2014-2020</p>
+					<div style="background: #FFF;text-align: center;"><img src="image/assets/logo-uia_eu.png" height="120" /><img src="image/assets/logo-tmaas.svg" height="120" /></div>
+				</div>
+				<!--<div class="w-100 d-lg-none d-xl-none"></div>-->
+				<div class="col-md-auto text-right">
+					<a href="https://github.com/oSoc19/RoadReport-backend" title="GitHub" target="_blank" class="social"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+					<a href="https://twitter.com/tmaas_eu" target="_blank" title="Twitter" class="social"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+					<a href="https://drive.tmaas.eu/" target="_blank" title="TMaaS Website" class="social"><i class="fa fa-link" aria-hidden="true"></i></a>
+					<a href="https://www.linkedin.com/company/tmaas/" title="LinkedIn" target="_blank" class="social"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+					<br />
+					<a href="#lang" data-lang="en" title="English Version">EN</a> |
+					<a href="#lang" data-lang="nl" title="Nederlandse Versie">NL</a> -
+					<a href="https://drive.tmaas.eu/privacy-policy/" target="_blank">Disclaimer</a> - <a href="https://drive.tmaas.eu/privacy-policy/" target="_blank">Terms of use</a>
+					<br />
+					<span style="font-size:10px;">Created with <i id="heart" class="fa fa-heart" aria-hidden="true"></i> by The Guardians of the Road at <a href="https://2019.summerofcode.be/project/road-report" target="_blank">Open Summer of Code 2019</a></span>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

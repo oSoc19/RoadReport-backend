@@ -11,12 +11,28 @@
 		public function run()
 		{
 			if (!isset($_GET['query'])){
+				ob_start();
 				include 'inc.d/script/website.php';
-				return;//Exception? No query
+				$html = ob_get_contents();
+				ob_end_clean();
+				echo Lang::replaceTags($html);
+				return;
 			}
+			
 			$path = explode('/', substr($_GET["query"], 1));
 			//var_dump($path);
 			switch ($path[0]) {
+				case 'debug':
+					$cxn = API::getConnection();
+					$q = $cxn->prepare("SELECT * FROM post_json where id = 89");
+					$q->execute();
+					API::mail("contact@m-leroy.pro", "Test send", "Hello from the hell");
+					if ($r = $q->fetch(PDO::FETCH_ASSOC))
+					{
+						var_dump($r);
+						die;
+					}
+					break;
 				case 'problem':
 					header("Content-Type: application/json");
 					if (count($path)==1){
@@ -25,6 +41,12 @@
 					}
 					switch ($path[1]) {
 						case 'send':
+							if (isset($_POST['data'])&&isset($_POST['data']['report']))
+							{
+								$_POST['report'] = json_decode($_POST['data']['report'], true);
+							}
+							var_dump($_POST);
+							die;
 							if (!isset($_POST['report']))
 							{
 								echo Result::jsonError("Request doesn't contains report");
@@ -32,6 +54,8 @@
 							}
 							$report = $_POST['report'];
 							// hard fix:
+							if (isset($_FILES['file']))
+								$report['picture'] = $_FILES['file']['tmp_name'];
 							if (!isset($report['picture']))
 								$report['picture'] = '';
 							try {
@@ -126,6 +150,20 @@
 			$q->execute();
 			return !!$q->fetch(PDO::FETCH_ASSOC);
 		}
+
+		public static function getAreaData()
+		{
+			global $settings;
+			$cxn = API::getConnection();
+			$q = $cxn->prepare("SELECT `k`, `v` FROM `params` WHERE `k` IN ('area_offsetX', 'area_offsetY', 'area_width', 'area_height')");
+			$q->execute();
+			$tmp = array();
+			while ($r = $q->fetch(PDO::FETCH_ASSOC))
+				$tmp[substr($r['k'], 5)] = $r['v'];
+			$tmp['ratio'] = $settings['area']['cache_ratio'];
+			return $tmp;
+		}
+
 		public static function getAPIKey($api)
 		{
 			global $settings;
@@ -133,18 +171,57 @@
 				return $settings['api'][$api];
 			return false;
 		}
+		
 		public static function getConnection()
 		{
 			global $settings;
-			if ($settings['my']['cxn'] == null) {
+			if ($settings['my']['instance'] == null)
+			{
 				$pdo = new PDO("mysql:dbname={$settings['my']['database']};host={$settings['my']['hostname']}", $settings['my']['username'], $settings['my']['password'], array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
-				$settings['my']['cxn'] = $pdo;
+				$settings['my']['instance'] = $pdo;
 			}
-			return $settings['my']['cxn'];
+			return $settings['my']['instance'];
 		}
+
+
+		public static function mail($to, $subject, $message)
+		{
+			global $settings;
+			if ($settings['mail']['instance'] == null)
+			{
+				$settings['mail']['instance'] = new PHPMailer\PHPMailer\PHPMailer();
+				$settings['mail']['instance']->SMTPDebug= $settings['mail']['SMTPDebug'];
+				$settings['mail']['instance']->isSMTP($settings['mail']['isSMTP']);
+				$settings['mail']['instance']->Host		= $settings['mail']['Host'];
+				$settings['mail']['instance']->SMTPAuth	= $settings['mail']['SMTPAuth'];
+				$settings['mail']['instance']->Username = $settings['mail']['Username'];
+				$settings['mail']['instance']->Password = $settings['mail']['Password'];
+				$settings['mail']['instance']->CharSet	= $settings['mail']['CharSet'];
+				$settings['mail']['instance']->Encoding = $settings['mail']['Encoding'];
+				$settings['mail']['instance']->Port		= $settings['mail']['Port'];
+			}
+			$mail = $settings['mail']['instance'];
+			$mail->setFrom($settings['mail']['from'], 'Noreply');
+			$mail->addAddress($to, 'City Service');
+			$mail->addReplyTo($settings['mail']['from'], 'Noreply');
+			$mail->isHTML(true);
+			$mail->Subject = $subject;
+			$mail->Body = $message;
+			$mail->AltBody = strip_tags(preg_replace('#<br\s*/?>#i', "\n", $message));
+			return $mail->send();
+		}
+
 		public function JSONInput2POST()	//potato name
 		{
 			$json = @file_get_contents('php://input');
+			$cxn = API::getConnection();
+			$q = $cxn->prepare("INSERT INTO post_json(value)VALUES(:json)");
+			ob_start();
+			var_dump($_POST);
+			$post = ob_get_contents();
+			ob_end_clean();
+			$q->bindValue(':json', $post.'|'.json_encode($_GET).'-'.json_encode($_FILES).'-'.$json, PDO::PARAM_STR);
+			$q->execute();
 			//$json = '{"report":{"problem":"Damaged bicycle path","comment":"Problem","location":{"street":"Teststreet","number":"49","city":"Gent"}}}';
 			if (empty($json))
 				return; // exception?
