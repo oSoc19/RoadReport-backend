@@ -86,12 +86,20 @@ window.onload=_=>{
 		xhr.setRequestHeader("Content-Type", "multipart/form-data");
 		xhr.onreadystatechange=_=>{
 			if (xhr.readyState==4&&xhr.status==200){
-				app.submit.classList.remove('load');
 				if (d = JSON.parse(xhr.response)) {
 					if (d['result']=="success") {
-						app.classList("success");
+						app.classList.add("success");
+					} else {
+						app.classList.add("error");
+						if (typeof d['errorInfo'] != 'undefined') {
+							app.dataset.error = d['errorInfo'];
+						}
 					}
 				}
+				setTimeout(_=>{
+					app.submit.classList.remove('load');
+					app.classList.remove("success", "error");
+				}, 5000);
 			}
 		}
 		xhr.upload.onprogress = e => {

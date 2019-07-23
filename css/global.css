@@ -81,7 +81,9 @@ footer p {
 	background: #FFF;
 	border-radius: 16px;
 	margin: 0px auto;
+	overflow: hidden;
 	padding: 16px;
+	position: relative;
 	width: 420px;
 }
 #app fieldset {
@@ -118,12 +120,51 @@ footer p {
 	min-width: 100%;
 	transition: 2s;
 }
-#app.success::after {}
+#app.success > *,
+#app.error > *{
+	filter: blur(4px);
+}
+#app.success::before,
+#app.error::before {
+	border-radius: 72px;
+	box-shadow: 0px 0px 0px 360px #FFFC;
+	color: #FFF;
+	display: block;
+	font: normal normal normal 72px/1 ForkAwesome;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 72px;
+	z-index: 10000100;
+}
+#app.success::before {
+	background: #0ed00e;
+	content: "\f00c";
+	padding: 0px 10px;
+}
+#app.error::before {
+	background: red;
+	content: "\f00d";
+	text-align: center;
+}
+#app.error::after {
+	color: red;
+	content: attr(data-error);
+	left: 0px;
+	position: absolute;
+	text-align: center;
+	top: calc(50%/1 + 56px/1);
+	width: 100%;
+	z-index: 10000110;
+}
 #street_search_result {
 	background: #FFFC;
 	border: 1px solid #3337;
 	border-top: none;
 	display: none;
+	max-height: 272px;
+	overflow-y: auto;
 	position: absolute;
 }
 #street_search_result .result {

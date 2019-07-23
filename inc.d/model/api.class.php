@@ -36,10 +36,6 @@
 					break;
 				case 'problem':
 					header("Content-Type: application/json");
-					if (count($path)==1){
-						echo Result::jsonError("Query is no complete");
-						break;//Exception? No complete query
-					}
 					switch ($path[1]) {
 						case 'send':
 							if ($_SERVER['HTTP_CONTENT_TYPE']=="multipart/form-data")
@@ -58,6 +54,7 @@
 								}
 							}
 							try {
+								// adapt to contexts:
 								if (isset($_POST['data']))
 								{
 									$_POST['report'] = json_decode($_POST['data'], true)["report"];
@@ -68,16 +65,20 @@
 									return;
 								}
 								$report = $_POST['report'];
-								// hard fix:
 								if (isset($_FILES['file']))
 									$report['picture'] = $_FILES['file']['tmp_name'];
 								if (!isset($report['picture']))
-								$report['picture'] = '';
+									$report['picture'] = '';
+								// check fields
+								if (@empty($report['problem']))
+									throw new Exception('No problem provided');
+								if (@empty($report['location']['street'])||@empty($report['location']['city']))
+									throw new Exception('No address provided');
 								$r = new Report($report['problem'], $report['comment'], $report['location'], $report['picture']);
 								echo '{"result":"success"}';
 								API::mail("contact@m-leroy.pro", "New report", $r);
 							} catch (Exception $ex) {
-								echo Result::jsonError("Can't be add: ".$ex->getMessage());
+								echo Result::jsonError($ex->getMessage());
 							}
 						break;
 						case 'last':
@@ -179,6 +180,26 @@
 			return $tmp;
 		}
 
+		public static function get_select_tag_problem($name = "problem")
+		{
+			$cxn = API::getConnection();
+			$tmp = '<select name="'.htmlspecialchars($name).'"">';
+			$q = $cxn->prepare("SELECT * FROM `problem_category`");
+			$q->execute();
+			while ($cat = $q->fetch(PDO::FETCH_ASSOC)) {
+				$tmp.='<optgroup label="'.$cat['tag_name'].'">';
+				$q2 = $cxn->prepare("SELECT * FROM `problem` WHERE `category` = :cat");
+				$q2->bindParam(':cat', $cat['id'], PDO::PARAM_INT);
+				$q2->execute();
+				while ($p = $q2->fetch(PDO::FETCH_ASSOC)) {
+					$tmp.='<option value="'.$p['id'].'">'.$p['tag_name'].'</option>';
+				}
+				$tmp.='</optgroup>';
+			}
+			$tmp.= '</select>';
+			return $tmp;
+		}
+
 		public static function getAPIKey($api)
 		{
 			global $settings;
@@ -198,9 +219,10 @@
 			return $settings['my']['instance'];
 		}
 
-
 		public static function mail($to, $subject, $message)
 		{
+			if (@empty($message)||is_array($message))
+				return false;
 			global $settings;
 			$mail = $settings['mail']['instance'];
 			if ($settings['mail']['instance'] == null)
@@ -223,7 +245,7 @@
 			$mail->isHTML(true);
 			$mail->Subject = $subject;
 			$mail->Body = $message;
-			$mail->AltBody = strip_tags(preg_replace('#<br\s*/?>#i', "\n", $message));
+			$mail->AltBody = @strip_tags(@preg_replace('#<br\s*/?>#i', "\n", $message));
 			return $mail->send();
 		}
 

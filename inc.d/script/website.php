@@ -34,15 +34,21 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#report">{{MENU_REPORT}}</a>
 					</li>
-					<li class="nav-item">
-						<a href="#statistics"><button>{{MENU_STATS}}</button></a>
-					</li>
-					<li class="nav-item">
-						<a href="#map"><button>{{MENU_MAP}}</button></a>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="statsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{MENU_STATS}}</a>
+						<div class="dropdown-menu" aria-labelledby="statsDropdown">
+							<a href="#statistics" class="dropdown-item">Basic</a>
+							<a href="#map" class="dropdown-item">Map</a>
 						</div>
 					</li>
 					<li class="nav-item">
-						<a href="#lang" data-lang="en" title="English Version">EN</a> | <a href="#lang" data-lang="nl" title="Nederlandse Versie">NL</a>
+						<a class="nav-link" href="#about">{{MENU_ABOUT}}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#contact">{{MENU_CONTACT}}</a>
+					</li>
+					<li class="nav-item">
+						<a href="#download"><button>{{MENU_DOWNLOAD}}</button></a>
 					</li>
 				</ul>
 			</div>
@@ -52,48 +58,7 @@
 		<form id="app" method="POST">
 			<fieldset>
 				<legend>{{PROBLEM}}</legend>
-				<select name="problem">
-				<optgroup label="Fietspad/voetpad:">
-					<option>Gat in het voetpad</option>
-					<option>Gat in het fietspad</option>
-					<option>Beschadiging van het voetpad</option>
-					<option>Beschadiging van het fietspad</option>
-					<option>Markering zebrapad</option>
-					<option>Markering fietspad</option>
-					<option>Sneeuw, ijzel, gladheid</option>
-					<option>Glas </option>
-					<option>Blindengeleidelijnen versperd</option>
-					<option>Hinderlijke inname van voetpad</option>
-					<option>Hinderlijke inname van fietspad</option>
-				</optgroup>
-				<optgroup label="Signalisatie:">
-					<option>Bord weg/verplaatst</option>
-					<option>Verkeerslicht defect</option>
-					<option>Drukknop verkeerslicht defect</option>
-					<option>Probleem met VGS bord</option>
-					<option>Fietstelpaal defect</option>
-				</optgroup>
-				<optgroup label="Fietsenstalling:">
-					<option>Overvol</option>
-					<option>Te herstellen</option>
-					<option>Onkruid / zwerfvuil</option>
-					<option>Achtergelaten fietsen</option>
-					<option>Suggestie voor locatie overdekte/inpandige fietsenstalling</option>
-				</optgroup>
-				<optgroup label="Fietsinfrastructuur:">
-					<option>Fietspomp kapot</option>
-					<option>Herstelzuil kapot</option>
-					<option>Fietslichtjes automaat leeg/kapot</option>
-				</optgroup>
-				<optgroup label="Andere:">
-					<option>Ontoegankelijk voetpad voor rolstoelgebruikers</option>
-					<option>Gevaarlijk kruispunt voor fietsers/voetgangers</option>
-					<option>Gevaarlijke situatie voor fietsers/voetgangers</option>
-					<option>Defecte/ontbrekende straatverlichting</option>
-					<option>Drukte op het voetpad</option>
-					<option>Andere</option>
-				</optgroup>
-				</select>
+				<?=API::get_select_tag_problem()?>
 			</fieldset>
 			<fieldset>
 				<legend>{{ADDRESS}}</legend>
@@ -179,21 +144,25 @@
 				center: [3.727194, 51.056457],
 				zoom: 13.5
 			});
-
+			
 		</script>
 	</section>
 	<section id="about">
 		<h1 class="title">{{TITLE_ABOUT}}</h1>
 		<article class="container">
-		<div class="row">
-			{{CONTENT_ABOUT}}
-		</div>
+		<div class="row">{{CONTENT_ABOUT}}</div>
 		<div class="row">
 			<div class="col">{{CONTENT_VISION}}</div>
 			<div class="w-100 d-lg-none d-xl-none"></div>
 			<div class="col">{{CONTENT_MISSION}}</div>
 		</div>
 		</article>
+	</section>
+	<section id="contact">
+		<h1 class="title">{{TITLE_CONTACT}}</h1>
+	</section>
+	<section id="download">
+		<h1 class="title">{{TITLE_DOWNLOAD}}</h1>
 	</section>
 	<footer>
 		<div class="container">

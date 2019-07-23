@@ -5,7 +5,7 @@
 	class Report
 	{
 		private $rid;		// int
-		private $problem;	// string
+		private $problem;	// int // object 'Problem'?
 		private $comment;	// string
 		private $location;	// Location
 		private $timestamp;	// int
@@ -214,11 +214,11 @@ SQL;
 				$l = $p->getLocation();
 				$a = array(
 					'@id' => "/problem/".$p->getID(),
-					'event' => $p->getProblem(),
+					'event' => Lang::replaceTags($p->getProblemTagName(), 'en'),
 					'currentStatus' => array(
 						'status' => $p->getStatus()
 					),
-					'comment' => $p->getProblem(),
+					'comment' => $p->getComment(),
 					'published' => date(DATE_RFC3339, $p->getTime()),
 					'location' => array(
 						'@id' => "/location/".$l->getLid(),
@@ -314,6 +314,18 @@ SQL;
 		{
 			return $this->status_date;
 		}
+		public function getProblemTagName()
+		{
+			if ($this->problem == null || !is_numeric($this->problem))
+				return null;
+			$cxn = API::getConnection();
+			$q = $cxn->prepare("SELECT `tag_name` FROM `problem` WHERE `id` = :id");
+			$q->bindParam(':id', $this->problem, PDO::PARAM_INT);
+			$q->execute();
+			if ($r = $q->fetch(PDO::FETCH_ASSOC))
+				return $r['tag_name'];
+			return null;
+		}
 
 		public function save()
 		{
@@ -323,7 +335,7 @@ SQL;
 			$i = $cxn->prepare("INSERT INTO `report`(`problem`, `comment`, `location`, `timestamp`, `picture_link`) VALUES(:problem, :comment, :location, :time, :picture)");
 			$this->location->save();
 			$loc = $this->location->getLid();
-			$i->bindParam(':problem', $this->problem, PDO::PARAM_STR, 63);
+			$i->bindParam(':problem', $this->problem, PDO::PARAM_INT);
 			$i->bindParam(':comment', $this->comment, PDO::PARAM_STR, 512);
 			$i->bindParam(':location', $loc, PDO::PARAM_INT);
 			$i->bindParam(':time', $this->timestamp, PDO::PARAM_INT);
@@ -334,7 +346,7 @@ SQL;
 			}
 			else
 			{
-				throw new Exception($i->debugDumpParams());
+				throw new Exception("The request is empty or malformed be submitted to the server");
 			}
 		}
 

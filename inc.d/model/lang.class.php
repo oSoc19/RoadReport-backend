@@ -6,10 +6,10 @@
 	{
 		public static $dictionnay = null;
 
-		public static function analyze()
+		public static function analyze($force = null)
 		{
 			global $settings;
-			$lang = $settings['lang_default'];
+			$lang = $force != null ? $force : $settings['lang_default'];
 			$path = $settings['lang_path'];
 			if (isset($_COOKIE['sLang'])&&is_file($path.substr($_COOKIE['sLang'], 0, 2).'.json'))
 			{
@@ -41,8 +41,10 @@
 			return $key;
 		}
 
-		public static function replaceTags($str)
+		public static function replaceTags($str, $force = null)
 		{
+			if ($force != null)
+				self::analyze($force);
 			if (self::$dictionnay == null)
 				self::analyze();
 			$l = self::$dictionnay;
