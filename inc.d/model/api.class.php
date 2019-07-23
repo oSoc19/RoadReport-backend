@@ -24,9 +24,10 @@
 			switch ($path[0]) {
 				case 'debug':
 					$cxn = API::getConnection();
+					API::mail("contact@m-leroy.pro", "Test send", "Hello from the hell");
+					die;
 					$q = $cxn->prepare("SELECT * FROM post_json where id = 89");
 					$q->execute();
-					API::mail("contact@m-leroy.pro", "Test send", "Hello from the hell");
 					if ($r = $q->fetch(PDO::FETCH_ASSOC))
 					{
 						var_dump($r);
@@ -41,26 +42,40 @@
 					}
 					switch ($path[1]) {
 						case 'send':
-							if (isset($_POST['data'])&&isset($_POST['data']['report']))
+							if ($_SERVER['HTTP_CONTENT_TYPE']=="multipart/form-data")
 							{
-								$_POST['report'] = json_decode($_POST['data']['report'], true);
+								$in = @file_get_contents('php://input');
+								$ln = explode("\n", str_replace("\r", '', $in));
+								for ($i=0; $i < count($ln); $i++)
+								{ 
+									if (preg_match("/name=\"([^\"]*)\"/i", $ln[$i], $name))
+									{
+										if (isset($ln[$i+2]))
+										{
+											$_POST[$name[1]] = $ln[$i+=2];
+										}
+									}
+								}
 							}
-							var_dump($_POST);
-							die;
-							if (!isset($_POST['report']))
-							{
-								echo Result::jsonError("Request doesn't contains report");
-								return;
-							}
-							$report = $_POST['report'];
-							// hard fix:
-							if (isset($_FILES['file']))
-								$report['picture'] = $_FILES['file']['tmp_name'];
-							if (!isset($report['picture']))
-								$report['picture'] = '';
 							try {
-								new Report($report['problem'], $report['comment'], $report['location'], $report['picture']);
+								if (isset($_POST['data']))
+								{
+									$_POST['report'] = json_decode($_POST['data'], true)["report"];
+								}
+								if (!isset($_POST['report']))
+								{
+									echo Result::jsonError("Request doesn't contains report");
+									return;
+								}
+								$report = $_POST['report'];
+								// hard fix:
+								if (isset($_FILES['file']))
+									$report['picture'] = $_FILES['file']['tmp_name'];
+								if (!isset($report['picture']))
+								$report['picture'] = '';
+								$r = new Report($report['problem'], $report['comment'], $report['location'], $report['picture']);
 								echo '{"result":"success"}';
+								API::mail("contact@m-leroy.pro", "New report", $r);
 							} catch (Exception $ex) {
 								echo Result::jsonError("Can't be add: ".$ex->getMessage());
 							}
@@ -187,20 +202,21 @@
 		public static function mail($to, $subject, $message)
 		{
 			global $settings;
+			$mail = $settings['mail']['instance'];
 			if ($settings['mail']['instance'] == null)
 			{
-				$settings['mail']['instance'] = new PHPMailer\PHPMailer\PHPMailer();
-				$settings['mail']['instance']->SMTPDebug= $settings['mail']['SMTPDebug'];
-				$settings['mail']['instance']->isSMTP($settings['mail']['isSMTP']);
-				$settings['mail']['instance']->Host		= $settings['mail']['Host'];
-				$settings['mail']['instance']->SMTPAuth	= $settings['mail']['SMTPAuth'];
-				$settings['mail']['instance']->Username = $settings['mail']['Username'];
-				$settings['mail']['instance']->Password = $settings['mail']['Password'];
-				$settings['mail']['instance']->CharSet	= $settings['mail']['CharSet'];
-				$settings['mail']['instance']->Encoding = $settings['mail']['Encoding'];
-				$settings['mail']['instance']->Port		= $settings['mail']['Port'];
+				$mail = new PHPMailer\PHPMailer\PHPMailer();
+				$mail->SMTPDebug= $settings['mail']['SMTPDebug'];
+				$mail->isSMTP($settings['mail']['isSMTP']);
+				$mail->Host		= $settings['mail']['Host'];
+				$mail->SMTPAuth	= $settings['mail']['SMTPAuth'];
+				$mail->Username = $settings['mail']['Username'];
+				$mail->Password = $settings['mail']['Password'];
+				$mail->CharSet	= $settings['mail']['CharSet'];
+				$mail->Encoding = $settings['mail']['Encoding'];
+				$mail->SMTPSecure=$settings['mail']['SMTPSecure'];
+				$mail->Port		= $settings['mail']['Port'];
 			}
-			$mail = $settings['mail']['instance'];
 			$mail->setFrom($settings['mail']['from'], 'Noreply');
 			$mail->addAddress($to, 'City Service');
 			$mail->addReplyTo($settings['mail']['from'], 'Noreply');
@@ -214,15 +230,6 @@
 		public function JSONInput2POST()	//potato name
 		{
 			$json = @file_get_contents('php://input');
-			$cxn = API::getConnection();
-			$q = $cxn->prepare("INSERT INTO post_json(value)VALUES(:json)");
-			ob_start();
-			var_dump($_POST);
-			$post = ob_get_contents();
-			ob_end_clean();
-			$q->bindValue(':json', $post.'|'.json_encode($_GET).'-'.json_encode($_FILES).'-'.$json, PDO::PARAM_STR);
-			$q->execute();
-			//$json = '{"report":{"problem":"Damaged bicycle path","comment":"Problem","location":{"street":"Teststreet","number":"49","city":"Gent"}}}';
 			if (empty($json))
 				return; // exception?
 			// remove useless react object like: somthing:{content:"value"}

@@ -112,26 +112,13 @@ footer p {
 	min-width: 50%;
 }
 #app input[type='submit'].load {
+	background: #8add82 linear-gradient(#0F0, #0F0) no-repeat top left;
+	background-size: 0% 100%;
 	color: #FFF0;
 	min-width: 100%;
 	transition: 2s;
 }
-#app input[type='submit'].loading {
-	animation: 2s test linear infinite;
-	background: repeating-linear-gradient(45deg, #8add82 0px, #8add82 16px, #7ee873 16px, #54994d 32px);
-	background-size: 46px 48px;
-	color: #FFF0;
-	min-width: 100%;
-	transition: 2s;
-}
-@keyframes test {
-	from {
-		background-position: 0px 0px;
-	}
-	to {
-		background-position: -46px 0px;
-	}
-}
+#app.success::after {}
 #street_search_result {
 	background: #FFFC;
 	border: 1px solid #3337;
@@ -141,6 +128,7 @@ footer p {
 }
 #street_search_result .result {
 	cursor: pointer;
+	display: block;
 	padding: 4px 16px;
 }
 #street_search_result .result:hover {

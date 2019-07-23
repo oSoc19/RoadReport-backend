@@ -7,7 +7,7 @@
 		private $ctx;
 		private $ratio;
 		private $max_width, $max_height;
-		private $quality = 60;
+		private $quality = 99;
 
 		public function __construct($img, $maxw = -1, $maxh = -1)
 		{
@@ -20,7 +20,9 @@
 			$this->ratio = $this->max_width > 0 && $this->max_height > 0 ? $this->max_width/$this->max_height : -1;
 			if (!!$this->ctx)
 			{
-				$this->checkSize();
+				global $settings;
+				if ($settings['resize_pics'])
+					$this->checkSize();
 				return $this;
 			}
 			else
@@ -52,15 +54,13 @@
 		{
 			if (!file_exists($path))
 				return false;
-			if (preg_match("/\.jp(e)g$/i", $path))
-				return imagecreatefromjpeg($path);
-			elseif (preg_match("/\.png$/i", $path))
+			if (preg_match("/\.png$/i", $path))
 				return imagecreatefrompng($path);
 			elseif (preg_match("/\.gif$/i", $path))
 				return imagecreatefromgif($path);
 			elseif (preg_match("/\.bmp$/i", $path))
 				return imagecreatefrombmp($path);
-			return false;
+			return imagecreatefromjpeg($path);
 		}
 
 		private function checkSize()

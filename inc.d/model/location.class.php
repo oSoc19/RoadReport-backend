@@ -40,11 +40,11 @@
 		}
 		public function setLongitude($long)
 		{
-			$this->longitude = $long;
+			$this->longitude = is_float($long)?$long:0.0;
 		}
 		public function setLatitude($lat)
 		{
-			$this->latitude = $lat;
+			$this->latitude = is_float($lat)?$lat:0.0;
 		}
 		public function save()	// potatato function, need to be improve
 		{

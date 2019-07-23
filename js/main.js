@@ -83,15 +83,19 @@ window.onload=_=>{
 		app.submit.classList.add('load');
 		let xhr = new XMLHttpRequest();
 		xhr.open("POST", "/problem/send");
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.setRequestHeader("Content-Type", "multipart/form-data");
 		xhr.onreadystatechange=_=>{
 			if (xhr.readyState==4&&xhr.status==200){
-				console.log(xhr);
+				app.submit.classList.remove('load');
+				if (d = JSON.parse(xhr.response)) {
+					if (d['result']=="success") {
+						app.classList("success");
+					}
+				}
 			}
-			switch (xhr.readyState)
-			{
-				//
-			}
+		}
+		xhr.upload.onprogress = e => {
+			app.submit.style.backgroundSize = (e.loaded/e.total)*100+'% 100%';
 		}
 		let fd = new FormData();
 		fd.append('data', JSON.stringify({
@@ -102,14 +106,14 @@ window.onload=_=>{
 					street : app.street.value,
 					number : app.number.value,
 					city   : app.city.value,
-					longitude: app.lon,
-					latitude : app.lat
+					longitude: app.lon.value,
+					latitude : app.lat.value
 				}
 			}
 		}));
-		fd.append('file', app.picture.files[0], 'reported picture');
+		if (app.picture.files.length > 0)
+			fd.append('file', app.picture.files[0]);
 		xhr.send(fd);
-		//setTimeout(_=>e.target.submit.classList.add('loading'), 2000);
 		return false;
 	};
 	for (let lg  of document.querySelectorAll("a[data-lang]")){

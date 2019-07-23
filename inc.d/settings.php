@@ -1,8 +1,9 @@
 <?php
 	error_reporting(E_ALL);
-	inset("display_errors", 1);
+	ini_set("display_errors", 1);
 	$settings = array(
-		"json_post" => true,
+		"json_post"		=> true,
+		"resize_pics"	=> false,
 		"lang_default"	=> "nl",
 		"lang_path"		=> "inc.d/lang/",
 
@@ -18,17 +19,18 @@
 			"instance"	   => null
 		),
 		"mail" => array(
-			"ReportTo"	=> "contact@m-leroy.pro",
-			"from"		=> "noreply@tmaas.m-leroy.pro",
+			"ReportTo"	=> "",
+			"from"		=> "",
 			"SMTPDebug"	=> 0,
-			"isSMTP"	=> false,
-			"Host"		=> "ssl0.ovh.net",
-			"SMTPAuth"	=> false,
-			"Username"	=> "noreply@tmaas.m-leroy.pro",
+			"isSMTP"	=> true,
+			"Host"		=> "",
+			"SMTPAuth"	=> true,
+			"Username"	=> "",
 			"Password"	=> "",
+			"SMTPSecure"=> "ssl",
 			"CharSet"	=> "UTF-8",
 			"Encoding"	=> "base64",
-			"Port" 		=> 587,
+			"Port" 		=> 465,
 			"instance"	=> null
 		),
 
