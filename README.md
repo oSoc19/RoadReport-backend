@@ -46,9 +46,9 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-Basically you need to have a NGINX, MySQL Server, and PHP (≥5) installed, MapBox API Key and BeSt@ Service.
+Basically you need to have a NGINX (manage website and proxy), MySQL Server (store data), and PHP≥5 (process the data) installed, MapBox API Key and BeSt@ Service.
 
-Website configuration:
+Website configuration `/etc/nginx/sites-available/roadreport.conf`:
 ```
 server {
     server_name  example.com www.example.com; #your domain(s)
@@ -69,8 +69,15 @@ server {
         proxy_pass https://best.osoc.be/v1/; #Address to the BeSt@ service
         proxy_redirect off;
     }
+
+    # include your php configuration
 }
 ```
+make a symbolic link for nginx
+```sh
+ln -s /etc/nginx/sites-available/roadreport.conf /etc/nginx/sites-enabled/roadreport.conf
+```
+
 
 ### Installation
 
@@ -82,9 +89,15 @@ cd /var/wwww/html
 ```sh
 git clone https://github.com/oSoc19/RoadReport-backend.git .
 ```
-3. Install database
-
-4. Edit the `inc.d/settings.php` file
+3. Install database with `setup/database.sql`
+```sh
+mysql -u <your-database-user> -p <your-database-name> < setup/database.sql
+```
+4. Remove setup folder
+```sh
+rm -r setup
+```
+5. Edit the `inc.d/settings.php` file
 ```php
 	$settings = array(
 		...
@@ -117,6 +130,7 @@ git clone https://github.com/oSoc19/RoadReport-backend.git .
 		)
 	);
 ```
+
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
