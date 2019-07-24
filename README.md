@@ -22,7 +22,6 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Usage](#usage)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -47,7 +46,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-Basically you need to have a NGINX (manage website and proxy), MySQL Server (store data), and PHP≥5 (process the data) installed, MapBox API Key and BeSt@ Service.
+Basically you need to have a NGINX server(manage website and proxy), MySQL Server (store data), and PHP≥5 (process the data) installed, MapBox API Key and BeSt@ Service.
 
 Website configuration `/etc/nginx/sites-available/roadreport.conf`:
 ```
@@ -111,7 +110,7 @@ rm -r setup
 			"instance" => null
 		),
 		"mail" => array(
-			"ReportTo"	=> "< Email which receive every report >",
+			"ReportTo"	=> "< email that will receive all reports >",
 			"from"		=> "< sender's mail >",
 			"SMTPDebug"	=> 0,
 			"isSMTP"	=> true,
@@ -131,6 +130,10 @@ rm -r setup
 		)
 	);
 ```
+
+<!-- LICENSE -->
+## Contact
+
 
 <!-- LICENSE -->
 ## License
