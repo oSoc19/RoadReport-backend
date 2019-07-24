@@ -32,7 +32,8 @@
 ## About The Project
 [![Road Report][product-screenshot]](https://roadreport.osoc.be/om)
 
-<p>[![Product Name Screen Shot][product-screenshot]](https://example.com)</p>
+<p>Road Report is an application that enables citizens to report problems such as potholes they encounter in the city.</p>
+<p>Road Report gathers data from citizens who use this app and sends this data to our partner TMaaS, who helps the city of Ghent to spot these problems quicker and effective. This improves the sidewalks and cycling paths for you, making life in the city a nicer experience for everyone.</p>
 
 ### Built With
 * [Bootstrap](https://getbootstrap.com)
