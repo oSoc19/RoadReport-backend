@@ -82,7 +82,7 @@ ln -s /etc/nginx/sites-available/roadreport.conf /etc/nginx/sites-enabled/roadre
 
 ### Installation
 
-1. Open your terminal and go in the website 
+1. Go on your SSH server et select the directory where you want install the website and the API
 ```sh
 cd /var/wwww/html
 ```
@@ -142,4 +142,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 * [Open Summer of Code](https://2019.summerofcode.be)
 * [TMaaS](https://drive.tmaas.eu/)
 * [City of Ghent](https://visit.gent.be/fr)
-* [Best Readme Templace](https://github.com/othneildrew/Best-README-Template)
+* [Best README Template](https://github.com/othneildrew/Best-README-Template)
