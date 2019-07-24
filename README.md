@@ -148,7 +148,6 @@ rm -r setup
 | location | location | Object describing the location      |    Yes   |
 
 ### Object Location
-
 | Field     | Type   | Description                                              | Required |
 |-----------|--------|----------------------------------------------------------|----------|
 | street    | Text   | The street where the problem is                          |    Yes   |
@@ -158,7 +157,6 @@ rm -r setup
 | latitude  | number | The latitude of the location (like: XX.XXXXXXXXXXXXXXXX) |    No    |
 
 ### List of problems (default)
-
 | ## | Problem                                      | ## | Problem                                     | ## | Problem                                      | ## | Problem                  |
 |----|----------------------------------------------|----|---------------------------------------------|----|----------------------------------------------|----|--------------------------|
 |  1 | Hole in footpath                             |  2 | Hole in bicycle path                        |  3 | Damaged footpath                             |  4 | Damaged bicycle path     |
@@ -170,16 +168,51 @@ rm -r setup
 | 25 | Unaccessible footpath for wheelchairs        | 26 | Dangerous crossing for cyclists/pedestrians | 27 | Dangerous situation for cyclists/pedestrians | 28 | Crowdedness on footpaths |
 | 29 | Missing/defect street lights                 | 30 | Other                                       |
 
+### Example of json report
+```json
+{
+	"report" : 
+	{
+		"problem" : "10",
+		"comment" : "Something happened",
+		"location":
+		{
+			"street" : "Randomstreet",
+			"number" : "1-12b",
+			"city"   : "Brussel",
+			"longitude":  4.3496181131285745,
+			"latitude" : 50.86576889787819
+		}
+	}
+}
+```
+
 <!-- USAGE -->
 ## Usage
 * Access to the website, just go on the dedicated domain:
 	```
 	GET	http://example.com
 	```
-	* Access to the dashboard (default login:: username: `moderator`; password: `TheGuardians!`)
+* Access to the dashboard (default login:: username: `moderator`; password: `TheGuardians!`)
 	```
 	GET /dashboard
 	```
+* See the list of problems for a specific day (ie: the 19th July 2019)
+	```
+	GET /problem/2019-07-19?page=1
+	```
+* Update the status of a report (possible values: `REPORTED`, `FIXED` and `REMOVE`)
+	```
+	POST /problem/update
+	```
+	Request body (ie: The report #12 is fixed)
+	```json
+	{
+		"id"    : 12,
+		"status": "FIXED"
+	}
+	```
+
 
 <!-- LICENSE -->
 ## Contact
