@@ -1,6 +1,4 @@
 <?php
-	error_reporting(E_ALL);
-	ini_set("display_errors", 1);
 	$settings = array(
 		"json_post"		=> true,
 		"resize_pics"	=> false,
@@ -35,7 +33,7 @@
 		),
 
 		"api" => array(
-			"mapbox"	=> "pk.eyJ1IjoibGExNzkzMzEiLCJhIjoiY2p5NWwwY3hvMDgydTNtbXZ4NHBjNjI3dyJ9.EielE76GDtb81oiYEFVm-w"
+			"mapbox"	=> "pk..."
 		)
 	);
 	?>
