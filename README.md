@@ -30,7 +30,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+[![Road Report][product-screenshot]](https://roadreport.osoc.be/om)
 
+<p>[![Product Name Screen Shot][product-screenshot]](https://example.com)</p>
 
 ### Built With
 * [Bootstrap](https://getbootstrap.com)
@@ -234,3 +236,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 * [TMaaS](https://drive.tmaas.eu/)
 * [City of Ghent](https://visit.gent.be/fr)
 * [Best README Template](https://github.com/othneildrew/Best-README-Template)
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[product-screenshot]: https://raw.githubusercontent.com/oSoc19/RoadReport-backend/master/setup/web-screenshot.png
