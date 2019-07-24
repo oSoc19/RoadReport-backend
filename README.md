@@ -22,8 +22,9 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [License](#license)
+* [Usage](#usage)
 * [Contact](#contact)
+* [License](#license)
 * [Acknowledgements](#acknowledgements)
 
 
@@ -134,6 +135,26 @@ rm -r setup
 			"mapbox"	=> "< your mapbox api key >"
 		)
 	);
+```
+
+<!-- STRUCTURE -->
+## Structure
+
+| Field    | Type     | Description                         | Required |
+|----------|----------|-------------------------------------|----------|
+| problem  | number   | The id of the problem that happened |    Yes   |
+| comment  | text     | Comment describing the problem      |    Yes   |
+| location | location | Object describing the location      |    Yes   |
+
+<!-- USAGE -->
+## Usage
+* Access to the website, just go on the dedicated domain:
+```
+GET	http://example.com
+```
+* Access to the dashboard (default login:: username: `moderator`; password: `TheGuardians!`)
+```
+GET /dashboard
 ```
 
 <!-- LICENSE -->
