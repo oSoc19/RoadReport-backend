@@ -120,11 +120,9 @@
 							backgroundColor: "#51B5CD"
 						}]
 					},
-					options : {
+					options: {
 						legend: {
-							labels: {
-								defaultFontFamily: "'Roboto', sans-serif"
-							}
+							display: false
 						}
 					}
 				});
@@ -138,6 +136,13 @@
 							data: data.map(p => p.nb_problem),
 							backgroundColor: colors
 						}]
+					},
+					options : {
+						legend: {
+							labels: {
+								defaultFontFamily: "'Roboto', sans-serif"
+							}
+						}
 					}
 				});
 			</script>
@@ -149,20 +154,32 @@
 				container: 'map',
 				style: 'mapbox://styles/la179331/cjy5kdw570s601cpkb740uatr',
 				center: [3.727194, 51.056457],
-				zoom: 13.5
+				zoom: 10.5
 			});
-			
+			var xmap = new XMLHttpRequest();
+			xmap.open("GET", "/problem/map");
+			xmap.onreadystatechange=_=>{
+				if (xmap.readyState==4&&xmap.status==200){
+					if (d = JSON.parse(xmap.response)) {
+						for (let p of d) {
+							if (p.longitude <= 0 || p.latitude <= 0)
+								continue;
+							let m = new mapboxgl.Marker({
+								color: p.status=='REPORTED'?'red':'blue'
+							});
+							m.setLngLat([p.longitude, p.latitude]);
+							m.addTo(map);
+						}
+					}
+				}
+			};
+			xmap.send();
 		</script>
 	</section>
 	<section id="about">
 		<h1 class="title">{{TITLE_ABOUT}}</h1>
 		<article class="container">
 		<div class="row">{{CONTENT_ABOUT}}</div>
-		<div class="row">
-			<div class="col">{{CONTENT_VISION}}</div>
-			<div class="w-100 d-lg-none d-xl-none"></div>
-			<div class="col">{{CONTENT_MISSION}}</div>
-		</div>
 		</article>
 	</section>
 	<section id="contact">

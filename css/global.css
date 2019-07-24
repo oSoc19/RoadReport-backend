@@ -108,6 +108,8 @@ footer p {
 	min-width: 50%;
 }
 #app input[type='submit'].load {
+	background: #8add82 linear-gradient(#0F0, #0F0) no-repeat top left;
+	background-size: 0% 100%;
 	color: #FFF0;
 	min-width: 100%;
 	transition: 2s;

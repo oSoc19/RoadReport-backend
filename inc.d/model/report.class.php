@@ -270,7 +270,6 @@ SQL;
 			}
 			return json_encode($arr);
 		}
-
 		public static function countInterval($from, $to)
 		{
 			$cxn = API::getConnection();
@@ -281,6 +280,13 @@ SQL;
 			if ($r = $q->fetch(PDO::FETCH_ASSOC))
 				return $r['count'];
 			return 0;
+		}
+		public static function quickMap()
+		{
+			$cxn = API::getConnection();
+			$q = $cxn->prepare("SELECT `r`.`status`, `l`.`longitude`, `l`.latitude FROM `report` `r` INNER JOIN `location` AS `l` ON (`r`.`location` = `l`.`lid`) WHERE `status` <> 'REMOVE'");
+			$q->execute();
+			return $q->fetchAll(PDO::FETCH_ASSOC);
 		}
 		public function getID()
 		{

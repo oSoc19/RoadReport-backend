@@ -40,13 +40,13 @@
 		}
 		public function setLongitude($long)
 		{
-			$this->longitude = is_float($long)?$long:0.0;
+			$this->longitude = $long;
 		}
 		public function setLatitude($lat)
 		{
-			$this->latitude = is_float($lat)?$lat:0.0;
+			$this->latitude = $lat;
 		}
-		public function save()	// potatato function, need to be improve
+		public function save()
 		{
 			if ($this->lid != null)
 				return $this->lid;
@@ -62,8 +62,8 @@
 			$i->bindParam(':street', $this->street, PDO::PARAM_STR, 63);
 			$i->bindParam(':number', $this->number, PDO::PARAM_STR, 8);
 			$i->bindParam(':city', $this->city, PDO::PARAM_STR, 63);
-			$i->bindValue(':lon', strval($this->longitude), PDO::PARAM_STR);
-			$i->bindValue(':lat', strval($this->latitude), PDO::PARAM_STR);
+			$i->bindValue(':lon', str_pad(strval($this->longitude), 18, '1'), PDO::PARAM_STR);
+			$i->bindValue(':lat', str_pad(strval($this->latitude), 19, '1'), PDO::PARAM_STR);
 			if ($i->execute())
 				return $cxn->lastInsertId();
 			return -1; //Exception

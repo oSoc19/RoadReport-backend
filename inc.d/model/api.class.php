@@ -85,6 +85,10 @@
 							$res = Report::getLast(isset($path[2])?$path[2]: 0, 50);
 							echo json_encode($res);
 							break;
+						case 'map':
+							header("Cache-Control: public, max-age=300");
+							echo json_encode(Report::quickMap());
+							break;
 						case 'update':
 							if (!$this->hasSuperAccess())
 							{

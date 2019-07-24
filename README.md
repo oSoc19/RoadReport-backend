@@ -201,7 +201,7 @@ rm -r setup
 	```
 	GET /problem/2019-07-19?page=1
 	```
-* Update the status of a report (possible values: `REPORTED`, `FIXED` and `REMOVE`)
+* Update the status of a report (possible values: `REPORTED`, `FIXED` OR `REMOVE`)
 	```
 	POST /problem/update
 	```
