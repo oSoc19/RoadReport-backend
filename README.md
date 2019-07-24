@@ -197,9 +197,13 @@ rm -r setup
 	```
 	GET /dashboard
 	```
-* See the list of problems for a specific day (ie: the 19th July 2019)
+* See the list of problems for a specific day (ie: the `19th July 2019`)
 	```
 	GET /problem/2019-07-19?page=1
+	```
+* See a specific report (ie: report `#42`)
+	```
+	GET /problem/42
 	```
 * Update the status of a report (possible values: `REPORTED`, `FIXED` OR `REMOVE`)
 	```

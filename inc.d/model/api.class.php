@@ -132,6 +132,11 @@
 									echo Result::jsonError("The date can't be parsed.");
 								}
 							}
+							elseif (preg_match("/([0-9]+)/", $path[1], $output_id))
+							{
+								$r = Report::get($output_id[1]);
+								echo $r;
+							}
 							else
 							{
 								header("location: /problem/".date("Y-m-d").'?page=1');
