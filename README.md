@@ -1,7 +1,7 @@
 <br />
 <p align="center">
 	<h3>Road Report (Server Part)</h3>
-	<p>This part of the project includes the API and the website
+	<p align="center">This part of the project includes the API and the website
 		<br />
 		<br />
 		<a href="https://github.com/oSoc19/RoadReport">Application</a>
@@ -30,7 +30,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 ### Built With
 * [Bootstrap](https://getbootstrap.com)
