@@ -173,13 +173,13 @@ rm -r setup
 <!-- USAGE -->
 ## Usage
 * Access to the website, just go on the dedicated domain:
-```
-GET	http://example.com
-```
-* Access to the dashboard (default login:: username: `moderator`; password: `TheGuardians!`)
-```
-GET /dashboard
-```
+	```
+	GET	http://example.com
+	```
+	* Access to the dashboard (default login:: username: `moderator`; password: `TheGuardians!`)
+	```
+	GET /dashboard
+	```
 
 <!-- LICENSE -->
 ## Contact
