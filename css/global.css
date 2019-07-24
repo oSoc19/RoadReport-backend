@@ -4,11 +4,6 @@ body {
 
 nav {
 	min-height: 120px;
-	position: fixed!important;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	z-index: 1000001;
 	transition: width .2s;
 }
 .navbar-nav {
@@ -27,8 +22,8 @@ nav button {
 	color: white;
 	padding: 4px 16px;
 }
-.bg-niceblue {
-	background: #4992d3!important;
+.bg-nicepurple {
+	background: #7d83bf!important;
 }
 section {
 	max-width: 100vw;
@@ -40,6 +35,7 @@ img, canvas {
 footer {
 	background: #444;
 	color: #EEE;
+	margin-top: 64px;
 	min-height: 200px;
 	padding: 32px 0px;
 }
@@ -67,7 +63,7 @@ footer p {
 	text-shadow: 1px 1px 0px #0003, -1px -1px 0px #FFF3, 0px 0px 10px #FFF3;
 }
 #report {
-	background: #E5E3DF;
+	background: #7d83bf url(../image/assets/background.svg) no-repeat bottom center / auto 65%;
 	min-height: 100vh;
 	padding-top: calc(120px/1 + 5vh/1);
 	/*transition: .2s;*/
@@ -76,7 +72,6 @@ footer p {
 	width: 100%!important;
 	height: auto!important;
 }
-
 #app {
 	background: #FFF;
 	border-radius: 16px;
@@ -93,9 +88,8 @@ footer p {
 #app fieldset select {
 	-moz-appearance: none;
 	-webkit-appearance: none;
-	border: none;
-	border-bottom: 1px solid #333;
-	border-radius: 2px;
+	border: 1px solid #333;
+	border-radius: 5px;
 	display: block;
 	margin-bottom: 4px;
 	padding: 8px 16px;
@@ -114,8 +108,6 @@ footer p {
 	min-width: 50%;
 }
 #app input[type='submit'].load {
-	background: #8add82 linear-gradient(#0F0, #0F0) no-repeat top left;
-	background-size: 0% 100%;
 	color: #FFF0;
 	min-width: 100%;
 	transition: 2s;
@@ -159,7 +151,7 @@ footer p {
 	z-index: 10000110;
 }
 #street_search_result {
-	background: #FFFC;
+	background: #FFF;
 	border: 1px solid #3337;
 	border-top: none;
 	display: none;

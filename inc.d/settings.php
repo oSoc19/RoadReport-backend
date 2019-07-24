@@ -1,9 +1,17 @@
 <?php
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
 	$settings = array(
 		"json_post"		=> true,
 		"resize_pics"	=> false,
 		"lang_default"	=> "nl",
 		"lang_path"		=> "inc.d/lang/",
+
+		"download" => array(
+			"visible"	=> false,
+			"appstore"	=> "",
+			"playstore" => ""
+		),
 
 		"area"	=> array(
 			"cache_ratio" => 6000
@@ -14,14 +22,14 @@
 			"database" => "",
 			"username" => "",
 			"password" => "",
-			"instance"	   => null
+			"instance" => null
 		),
 		"mail" => array(
 			"ReportTo"	=> "",
 			"from"		=> "",
 			"SMTPDebug"	=> 0,
 			"isSMTP"	=> true,
-			"Host"		=> "",
+			"Host"		=> "smtp.googlemail.com",
 			"SMTPAuth"	=> true,
 			"Username"	=> "",
 			"Password"	=> "",
@@ -33,7 +41,7 @@
 		),
 
 		"api" => array(
-			"mapbox"	=> "pk..."
+			"mapbox"	=> ""
 		)
 	);
 	?>

@@ -4,10 +4,14 @@
 
 	"MENU_REPORT":	"Report",
 	"MENU_STATS":	"Statistics",
-	"MENU_MAP":	"Reports map",
+	"MENU_MAP":		"Reports map",
+	"MENU_ABOUT":	"About",
+	"MENU_CONTACT":	"Contact",
+	"MENU_DOWNLOAD":"Download",
 
 	"PROBLEM":		"Problem",
 	"ADDRESS":		"Address",
+	"STREET":		"Street",
 	"HOUSENUMBER":	"Number",
 	"COMMENT":		"Comment",
 	"PICTURE":		"Picture",
@@ -15,8 +19,11 @@
 
 	"TITLE_STATS":	"Statistics",
 	"TITLE_ABOUT":	"Together, We Can Build a Better City",
+	"TITLE_CONTACT":"Contact",
+	"TITLE_DOWNLOAD":"Downlaod",
 
-	"CONTENT_ABOUT":"<div class=\"col-md-5 col-lg-6\"><p>With Road Report, cyclists and pedestrians can report problems such as potholes, broken paving slabs and loose curb stones they encounter in Ghent.</p><p>This way they support the city of Ghent to spot problems early on and improve the quality of the sidewalks and cycling paths in the city!</p></div><div class=\"col-md-5 col-lg-6\">An image</div><div class=\"col-md-5 col-lg-6\"><p>Road Report is a project powered by TMaaS and developed by at <a href=\"https://osoc.be/2019/road-report\" target=\"_blank\">open Summer of Code 2019</a>.</p> <p>Want Road Report for your own city? <a href=\"https://drive.tmaas.eu\">Find more information here</a> or use <a href=\"https://github.com/oSoc19/RoadReport-backend\">our open source code</a>.</p></div>",
+	"CONTENT_ABOUT":"<div class=\"col-md-5 col-lg-6\"><p>With Road Report, cyclists and pedestrians can report problems such as potholes, broken paving slabs and loose curb stones they encounter in Ghent.</p><p>This way they support the city of Ghent to spot problems early on and improve the quality of the sidewalks and cycling paths in the city!</p></div><div class=\"col-md-5 col-lg-6\">An image</div><div class=\"col-md-5 col-lg-6\"></div>",
+	"CONTENT_CONTACT": "<p>Would you like to see Road Report working in your city? RoadReport is currently available for the city of Ghent, but don’t hesitate to contact TMaaS or fork our github!<p><p>You can contact us at <a href=\"mailto:info@tmaas.eu\">info@tmaas.eu</a> or for specific questions regarding the city of Ghent at <a href=\"mailto:gentinfo@stad.gent\">gentinfo@stad.gent</a></p><p>Road Report is a project powered by TMaaS and developed by at <a href=\"https://osoc.be/2019/road-report\" target=\"_blank\">open Summer of Code 2019</a>.</p> <p>Want Road Report for your own city? <a href=\"https://drive.tmaas.eu\">Find more information here</a> or use <a href=\"https://github.com/oSoc19/RoadReport-backend\">our open source code</a>.</p>",
 
 	"CATEGORY_1" : "Bicycle path/footpath",
 	"CATEGORY_2" : "Signalisation",

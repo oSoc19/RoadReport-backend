@@ -5,16 +5,90 @@
 	"MENU_REPORT":	"Rapporteer probleem",
 	"MENU_STATS":	"Statistieken",
 	"MENU_MAP":	"Meldingen kaart",
+	"MENU_ABOUT":	"Ons",
+	"MENU_CONTACT":	"Contact",
+	"MENU_DOWNLOAD":"Download",
 
 	"PROBLEM":		"Probleem",
 	"ADDRESS":		"Adres",
-	"HOUSENUMBER":	"Huisnummer",
-	"COMMENT":		"Commentaar",
-	"PICTURE":		"Plaatje",
+	"STREET":		"Straat",
+	"HOUSENUMBER":	"Nummer",
+	"COMMENT":		"Beschrijf probleem (optioneel)",
+	"PICTURE":		"Foto (optioneel)",
 	"SEND_REPORT":	"Verzend Rapport",
 
 	"TITLE_STATS":	"Statistieken",
 	"TITLE_ABOUT":	"Samen werken we aan een betere stad",
+	"TITLE_CONTACT":"Contact",
+	"TITLE_DOWNLOAD":"Downlaod",
 
-	"CONTENT_ABOUT":"<div class=\"col-md-5\"><p>Met Road Report, kunnen fietsers en wandelaars eenvoudig problemen die ze op weg tegenkomen rapporteren. Bijvoorbeeld kapotte fietspaden, gaten in de weg of losse kasseien kan je met de app rapporteren, in de regio Gent.</p><p>Op deze manier ondersteunen Gentenaars de stad om problemen vroeg te ontdekken. Zo kan de stad de kwaliteit van de wandel- en fietspaden omhoog krikken!</p><p>Road Report is een project van TMaaS, gebouwd door op <a href=\"https://osoc.be/2019/road-report\" target=\"_blank\">open Summer of Code 2019</a>.<br><p>Would you like Road Report in your own city? <a href=\"https://drive.tmaas.eu\">Find more information here</a> or use <a href=\"https://github.com/oSoc19/RoadReport-backend\">our open source code</a>.</p></div><div class=\"w-100 d-lg-none d-xl-none\"></div><div class=\"col-md-5 text-justify\">An image</div>"
+	"CONTENT_ABOUT":"<div class=\"col-md-5\"><p>Met Road Report, kunnen fietsers en wandelaars eenvoudig problemen die ze op weg tegenkomen rapporteren. Bijvoorbeeld kapotte fietspaden, gaten in de weg of losse kasseien kan je met de app rapporteren, in de regio Gent.</p><p>Op deze manier ondersteunen Gentenaars de stad om problemen vroeg te ontdekken. Zo kan de stad de kwaliteit van de wandel- en fietspaden omhoog krikken!</p><p>Road Report is een project van TMaaS, gebouwd door op <a href=\"https://osoc.be/2019/road-report\" target=\"_blank\">open Summer of Code 2019</a>.<br><p>Would you like Road Report in your own city? <a href=\"https://drive.tmaas.eu\">Find more information here</a> or use <a href=\"https://github.com/oSoc19/RoadReport-backend\">our open source code</a>.</p></div><div class=\"w-100 d-lg-none d-xl-none\"></div><div class=\"col-md-5 text-justify\">An image</div>",
+	"CONTENT_CONTACT": "<p>Would you like to see Road Report working in your city? RoadReport is currently available for the city of Ghent, but don’t hesitate to contact TMaaS or fork our github!<p><p>You can contact us at <a href=\"mailto:info@tmaas.eu\">info@tmaas.eu</a> or for specific questions regarding the city of Ghent at <a href=\"mailto:gentinfo@stad.gent\">gentinfo@stad.gent</a></p><p>Road Report is a project powered by TMaaS and developed by at <a href=\"https://osoc.be/2019/road-report\" target=\"_blank\">open Summer of Code 2019</a>.</p> <p>Want Road Report for your own city? <a href=\"https://drive.tmaas.eu\">Find more information here</a> or use <a href=\"https://github.com/oSoc19/RoadReport-backend\">our open source code</a>.</p>",
+
+	"CATEGORY_1" : "Fietspad/voetpad",
+	"CATEGORY_2" : "Signalisatie",
+	"CATEGORY_3" : "Fietsenstalling",
+	"CATEGORY_4" : "Fietsinfrastructuur",
+	"CATEGORY_5" : "Andere",
+
+	"PROBLEM_1": "Gat in het voetpad",
+	"PROBLEM_2": "Gat in het fietspad",
+	"PROBLEM_3": "Beschadiging van het voetpad",
+	"PROBLEM_4": "Beschadiging van het fietspad",
+	"PROBLEM_5": "Markering zebrapad",
+	"PROBLEM_6": "Markering fietspad",
+	"PROBLEM_7": "Sneeuw, ijzel, gladheid",
+	"PROBLEM_8": "Glas",
+	"PROBLEM_9": "Blindengeleidelijnen versperd",
+	"PROBLEM_10": "Hinderlijke inname van voetpad",
+	"PROBLEM_11": "Hinderlijke inname van fietspad",
+	"PROBLEM_12": "Bord weg/verplaatst",
+	"PROBLEM_13": "Verkeerslicht defect",
+	"PROBLEM_14": "Drukknop verkeerslicht defect",
+	"PROBLEM_15": "Probleem met VGS bord",
+	"PROBLEM_16": "Fietstelpaal defect",
+	"PROBLEM_17": "Overvol",
+	"PROBLEM_18": "Te herstellen",
+	"PROBLEM_19": "Onkruid / zwerfvuil",
+	"PROBLEM_20": "Achtergelaten fietsen",
+	"PROBLEM_21": "Suggestie voor locatie overdekte/inpandige fietsenstalling",
+	"PROBLEM_22": "Fietspomp kapot",
+	"PROBLEM_23": "Herstelzuil kapot",
+	"PROBLEM_24": "Fietslichtjes automaat leeg/kapot",
+	"PROBLEM_25": "Ontoegankelijk voetpad voor rolstoelgebruikers",
+	"PROBLEM_26": "Gevaarlijk kruispunt voor fietsers/voetgangers",
+	"PROBLEM_27": "Gevaarlijke situatie voor fietsers/voetgangers",
+	"PROBLEM_28": "Defecte/ontbrekende straatverlichting",
+	"PROBLEM_29": "Drukte op het voetpad",
+	"PROBLEM_30": "Andere"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

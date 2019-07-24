@@ -51,6 +51,7 @@ Basically you need to have a NGINX server(manage website and proxy), MySQL Serve
 Website configuration `/etc/nginx/sites-available/roadreport.conf`:
 ```
 server {
+	listen 80;
     server_name  example.com www.example.com; #your domain(s)
     root         /var/www/html; # directory of the roadreport website
     index        index.php index.html index.htm;
@@ -70,6 +71,10 @@ server {
         proxy_redirect off;
     }
 
+    location ^\.git {
+    	deny all;
+    }
+
     # include your php configuration
 }
 ```
@@ -83,7 +88,7 @@ ln -s /etc/nginx/sites-available/roadreport.conf /etc/nginx/sites-enabled/roadre
 
 1. Go on your SSH server et select the directory where you want install the website and the API
 ```sh
-cd /var/wwww/html
+cd /var/www/html
 ```
 2. Clone the repo
 ```sh

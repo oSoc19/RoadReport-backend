@@ -1,5 +1,5 @@
 <?php
-	//
+	global $settings;
 	?>
 <!DOCTYPE html>
 <html lang="<?=Lang::get('ISO6391')?>">
@@ -21,9 +21,9 @@
 	<script type="text/javascript">var best_area=<?=json_encode(API::getAreaData())?>;</script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-md navbar-dark bg-niceblue">
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-nicepurple">
 		<div class="container">
-			<a class="navbar-brand" href="/">Road report</a>
+			<a class="navbar-brand" href="/">Road Report</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -38,7 +38,7 @@
 						<a class="nav-link dropdown-toggle" href="#" id="statsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{MENU_STATS}}</a>
 						<div class="dropdown-menu" aria-labelledby="statsDropdown">
 							<a href="#statistics" class="dropdown-item">Basic</a>
-							<a href="#map" class="dropdown-item">Map</a>
+							<a href="#map" class="dropdown-item">{{MENU_MAP}}</a>
 						</div>
 					</li>
 					<li class="nav-item">
@@ -47,9 +47,9 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#contact">{{MENU_CONTACT}}</a>
 					</li>
-					<li class="nav-item">
+					<?=$settings['download']['visible']?'<li class="nav-item">
 						<a href="#download"><button>{{MENU_DOWNLOAD}}</button></a>
-					</li>
+					</li>':''?>
 				</ul>
 			</div>
 		</div>
@@ -62,18 +62,23 @@
 			</fieldset>
 			<fieldset>
 				<legend>{{ADDRESS}}</legend>
-				<div style="display: flex;">
-					<input type="hidden" name="lon" />
-					<input type="hidden" name="lat" />
-					<input type="hidden" name="city"/>
-					<input type="text" name="street" placeholder="Street" autocomplete="off" />
-					<div id="street_search_result"></div>
-					<input type="text" name="number" placeholder="{{HOUSENUMBER}}" style="width: 92px; margin-left: 8px;" />
-				</div>
+				<input type="hidden" name="lon" />
+				<input type="hidden" name="lat" />
+				<input type="hidden" name="city"/>
+				<table cellpadding="0" cellspacing="0" style="width: 100%">
+				<tr>
+					<td><label for="street">{{STREET}}</label></td>
+					<td width="92"><label for="numer">{{HOUSENUMBER}}</label></td>
+				</tr>
+				<tr style="position: relative;">
+					<td><input type="text" name="street" autocomplete="off" style="width: 100%" /><div id="street_search_result"></div></td>
+					<td><input type="text" name="number" style="width: 92px; margin-left: 2px;" /></td>
+				</tr>
+				</table>
 			</fieldset>
 			<fieldset>
 				<legend>{{COMMENT}}</legend>
-				<input type="text" name="comment" placeholder="{{COMMENT}}"/>
+				<input type="text" name="comment"/>
 			</fieldset>
 			<fieldset>
 				<legend>{{PICTURE}}</legend>
@@ -81,10 +86,12 @@
 			</fieldset>
 			<input type="submit" name="submit" value="{{SEND_REPORT}}"/>
 		</form>
+	<?php if ($settings['download']['visible']) : ?>
 		<center style="margin-top: 64px;">
-			<img src="image/assets/itunes_store_logo.svg" height="48" />
-			<img src="image/assets/google_play_logo.svg" height="48" />
+			<a href="<?=$settings['download']['appstore']?>" target="_blank"><img src="image/assets/itunes_store_logo.svg" height="48" /></a>
+			<a href="<?=$settings['download']['playstore']?>" target="_blank"><img src="image/assets/google_play_logo.svg" height="48" /></a>
 		</center>
+	<?php endif; ?>
 	</section>
 	<section id="statistics">
 		<div class="container">
@@ -160,10 +167,13 @@
 	</section>
 	<section id="contact">
 		<h1 class="title">{{TITLE_CONTACT}}</h1>
+		<article class="container">{{CONTENT_CONTACT}}</article>
 	</section>
+<?php if ($settings['download']['visible']) : ?>
 	<section id="download">
 		<h1 class="title">{{TITLE_DOWNLOAD}}</h1>
 	</section>
+<?php endif; ?>
 	<footer>
 		<div class="container">
 			<div class="row">
