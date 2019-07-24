@@ -23,6 +23,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
+* [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
 
@@ -131,9 +132,14 @@ rm -r setup
 	);
 ```
 
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 * [Open Summer of Code](https://2019.summerofcode.be)
 * [TMaaS](https://drive.tmaas.eu/)
 * [City of Ghent](https://visit.gent.be/fr)
+* [Best Readme Templace](https://github.com/othneildrew/Best-README-Template)
