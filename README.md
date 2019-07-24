@@ -37,6 +37,7 @@
 * [mapbox](https://mapbox.com)
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 * [BeSt@](https://github.com/oSoc19/best)
+* [love](https://en.wikipedia.org/wiki/Love)
 
 
 <!-- GETTING STARTED -->
@@ -191,7 +192,7 @@ rm -r setup
 ## Usage
 * Access to the website, just go on the dedicated domain:
 	```
-	GET	http://example.com
+	GET http://example.com
 	```
 * Access to the dashboard (default login:: username: `moderator`; password: `TheGuardians!`)
 	```
@@ -205,11 +206,11 @@ rm -r setup
 	```
 	GET /problem/42
 	```
-* Update the status of a report (possible values: `REPORTED`, `FIXED` OR `REMOVE`)
+* Update the status of a report (possible values: `REPORTED`, `FIXED` or `REMOVE`)
 	```
 	POST /problem/update
 	```
-	Request body (ie: The report #12 is fixed)
+	Request body (ie: The report `#12` is `fixed`)
 	```json
 	{
 		"id"    : 12,
