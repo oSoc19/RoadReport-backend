@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-	<h3>Road Report (Server Part)</h3>
+	<h3 align="center">Road Report (Server Part)</h3>
 	<p align="center">This part of the project includes the API and the website
 		<br />
 		<br />
