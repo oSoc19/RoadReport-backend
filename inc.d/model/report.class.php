@@ -47,7 +47,7 @@
 			$cxn = API::getConnection();
 			$q = $cxn->prepare("UPDATE `report` SET `status` = :s, `status_date` = :sd WHERE `rid` = :id LIMIT 1");
 			$q->bindParam(':s', $this->status, PDO::PARAM_STR);
-			$q->bindParam(':sd', $this->status, PDO::PARAM_INT);
+			$q->bindParam(':sd', $this->status_date, PDO::PARAM_INT);
 			$q->bindValue(':id', $this->getID());
 			return !!$q->execute();
 		}
@@ -104,8 +104,9 @@
 SQL;
 			$s = $cxn->prepare($sql);
 			$s->bindParam(':id', $id, PDO::PARAM_INT);
+			$s->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 			$s->execute();
-			return $s->fetch(PDO::FETCH_CLASS, __CLASS__);
+			return $s->fetch();
 		}
 
 		public static function getLast($from = 0, $limit = 50)

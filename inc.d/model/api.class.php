@@ -73,7 +73,7 @@
 								if (@empty($report['problem']))
 									throw new Exception('No problem provided');
 								if (@empty($report['location']['street'])||@empty($report['location']['city']))
-									throw new Exception('No address provided');
+									throw new Exception('No address provided, please select in the list');
 								$r = new Report($report['problem'], $report['comment'], $report['location'], $report['picture']);
 								echo '{"result":"success"}';
 								API::mail("contact@m-leroy.pro", "New report", $r);
@@ -102,8 +102,13 @@
 							}
 							if ($r = Report::get($_POST['id']))
 							{
-								$r->updateStatus($_POST['status']);
+								if ($r->updateStatus($_POST['status']))
+								{
+									echo '{"result":"success"}';
+									break;
+								}
 							}
+							echo Result::jsonError("The report can't be update");
 							break;
 						default:
 							if (preg_match("/([0-9]{4})\-([0-9]{2})\-([0-9]{2})/", $path[1], $output_date))
