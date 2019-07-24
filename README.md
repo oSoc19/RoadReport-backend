@@ -140,11 +140,35 @@ rm -r setup
 <!-- STRUCTURE -->
 ## Structure
 
+### Object Report
 | Field    | Type     | Description                         | Required |
 |----------|----------|-------------------------------------|----------|
 | problem  | number   | The id of the problem that happened |    Yes   |
 | comment  | text     | Comment describing the problem      |    Yes   |
 | location | location | Object describing the location      |    Yes   |
+
+### Object Location
+
+| Field     | Type   | Description                                              | Required |
+|-----------|--------|----------------------------------------------------------|----------|
+| street    | Text   | The street where the problem is                          |    Yes   |
+| number    | text   | The house number where the problem is                    |    No    |
+| city      | text   | The city where the problem is                            |    Yes   |
+| longitude | number | The longitude of the location (like: X.XXXXXXXXXXXXXXXX) |    No    |
+| latitude  | number | The latitude of the location (like: XX.XXXXXXXXXXXXXXXX) |    No    |
+
+### List of problems (default)
+
+| ## | Problem                                      | ## | Problem                                     | ## | Problem                                      | ## | Problem                  |
+|----|----------------------------------------------|----|---------------------------------------------|----|----------------------------------------------|----|--------------------------|
+|  1 | Hole in footpath                             |  2 | Hole in bicycle path                        |  3 | Damaged footpath                             |  4 | Damaged bicycle path     |
+|  5 | Unclear marking pedestrian crossing          |  6 | Unclear marking bicycle path                |  7 | Snow, frost, slipperiness                    |  8 | Glass                    |
+|  9 | Blocked guiding lines for blind people       | 10 | Obstructive intake of footpath              | 11 | Obstructive intake of bicycle path           | 12 | Sign gone/moved          |
+| 13 | Traffic light defect                         | 14 | Traffic light button defect                 | 15 | Problem with VMS sign                        | 16 | Bicycle counter defect   |
+| 17 | Always full                                  | 18 | In need of reparation                       | 19 | Weed / trash                                 | 20 | Left bicycles            |
+| 21 | Suggestion for sheltered/indoor bicycle rack | 22 | Broken cycling pump                         | 23 | Broken/empty cycling lights vending machine  | 24 | Broken repair machine    |
+| 25 | Unaccessible footpath for wheelchairs        | 26 | Dangerous crossing for cyclists/pedestrians | 27 | Dangerous situation for cyclists/pedestrians | 28 | Crowdedness on footpaths |
+| 29 | Missing/defect street lights                 | 30 | Other                                       |
 
 <!-- USAGE -->
 ## Usage
