@@ -17,6 +17,9 @@
 	"PICTURE":		"Picture",
 	"SEND_REPORT":	"Send Report",
 
+	"WEEK":			"week",
+	"MONTH":		"Month",
+
 	"TITLE_STATS":	"Statistics",
 	"TITLE_ABOUT":	"Together, We Can Build a Better City",
 	"TITLE_CONTACT":"Contact",
@@ -30,6 +33,7 @@
 	"CATEGORY_3" : "Bicycle rack",
 	"CATEGORY_4" : "Cycling infrastructure",
 	"CATEGORY_5" : "Other",
+	"CATEGORY_6" : "Straatverlichting defect",
 
 	"PROBLEM_1": "Hole in footpath",
 	"PROBLEM_2": "Hole in bicycle path",
@@ -60,5 +64,13 @@
 	"PROBLEM_27": "Dangerous situation for cyclists/pedestrians",
 	"PROBLEM_28": "Crowdedness on footpaths",
 	"PROBLEM_29": "Missing/defect street lights",
-	"PROBLEM_30": "Other "
+	"PROBLEM_30": "Other ",
+	
+	"POBLEM_31": "Lamp defect",
+	"POBLEM_32": "Lamp blijft branden",
+	"POBLEM_33": "Lamp knippert",
+	"POBLEM_34": "Meerdere lampen blijven branden",
+	"POBLEM_35": "4 of meer opeenvolgende lampen defect",
+	"POBLEM_36": "Volledige straat zonder verlichting",
+	"POBLEM_37": "Ander defect"
 }

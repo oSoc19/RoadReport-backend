@@ -95,7 +95,9 @@
 	</section>
 	<section id="statistics">
 		<div class="container">
-			<h1 class="title">{{TITLE_STATS}}</h1>
+			<h1 class="title">
+				{{TITLE_STATS}}
+			</h1>
 			<div class="row text-center">
 				<div class="col">
 					<canvas id="stat_problem_render" height="300" width="600"></canvas>
@@ -109,14 +111,13 @@
 				var ctxs = stat_street_render.getContext('2d'),
 					ctxp = stat_problem_render.getContext('2d');
 				var colors = ["#e74c3c", "#9b59b6", "#95a5a6", "#a5c63b", "#e67e22", "#3a6f81", "#345f41", "#f47cc3"];
-				var data = [{"street":"646","nb_report":"22"},{"street":"Mietstraat","nb_report":"17"},{"street":"Ybynybuk","nb_report":"11"},{"street":"Dvdjz","nb_report":"7"},{"street":"Rbeb","nb_report":"5"},{"street":"Marsstreet","nb_report":"4"}];
 				charts = new Chart(ctxs, {
 					type: 'bar',
 					data: {
-						labels: data.map(s => s.street),
+						labels: [],
 						datasets: [{
 							label: '# of Problems',
-							data: data.map(s => s.nb_report),
+							data: [],
 							backgroundColor: "#51B5CD"
 						}]
 					},
@@ -126,14 +127,13 @@
 						}
 					}
 				});
-				data = [{"problem":"Suggestion for sheltered\/indoor bicycle rack","nb_problem":"28"},{"problem":"Trash \/ Weed","nb_problem":"22"},{"problem":"Weed \/ trash","nb_problem":"9"},{"problem":"Broken repair machine","nb_problem":"8"},{"problem":"In need of reparation","nb_problem":"7"},{"problem":"Broken\/empty cycling lights vending machine","nb_problem":"6"}];
 				chartp = new Chart(ctxp, {
 					type: 'doughnut',
 					data: {
-						labels: data.map(p => p.problem),
+						labels: [],
 						datasets: [{
 							label: '# of Problems',
-							data: data.map(p => p.nb_problem),
+							data: [],
 							backgroundColor: colors
 						}]
 					},
@@ -145,6 +145,45 @@
 						}
 					}
 				});
+				var chrp, chrs;
+				chrp = new XMLHttpRequest();
+				chrs = new XMLHttpRequest();
+				chrp.open("GET", "/stats/problem/month");
+				chrs.open("GET", "/stats/street/month");
+				chrp.onreadystatechange =  _ => {
+					if (chrp.readyState==4&&chrp.status==200) {
+						if (c=JSON.parse(chrp.response)) {
+							let data = c['content']['data'];
+							chartp.data = {
+								labels: data.map(p => p.tag_name),
+								datasets: [{
+									label: '# of Problems',
+									data: data.map(p => p.nb_problem),
+									backgroundColor: colors
+								}]
+							};
+							chartp.update();
+						}
+					}
+				}
+				chrs.onreadystatechange =  _ => {
+					if (chrs.readyState==4&&chrs.status==200) {
+						if (c=JSON.parse(chrs.response)) {
+							let data = c['content']['data'];
+							charts.data = {
+								labels: data.map(p => p.street),
+								datasets: [{
+									label: '# of Problems',
+									data: data.map(p => p.nb_report),
+									backgroundColor: "#51B5CD"
+								}]
+							};
+							charts.update();
+						}
+					}
+				}
+				chrp.send();
+				chrs.send();
 			</script>
 		</div>
 		<div id="map"></div>

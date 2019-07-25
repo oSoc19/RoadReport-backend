@@ -50,9 +50,12 @@ SQL;
 			$sql = <<<SQL
 				SELECT 
 					`r`.`problem`,
+					`p`.`tag_name`,
 					COUNT(*) AS `nb_problem`
 				FROM 
 					`report` AS `r` 
+				INNER JOIN 
+					`problem` `p` ON (`r`.`problem` = `p`.`id`)
 				WHERE
 					`r`.`timestamp` > :time
 				GROUP BY

@@ -13,7 +13,7 @@
 		}
 		public static function jsonSuccess($content)
 		{
-			return json_encode(array("result" => "success", "content" => $content));
+			return Lang::replaceTags(json_encode(array("result" => "success", "content" => $content)));
 		}
 	}
 	?>

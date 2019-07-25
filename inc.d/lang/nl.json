@@ -17,6 +17,9 @@
 	"PICTURE":		"Foto (optioneel)",
 	"SEND_REPORT":	"Verzend Rapport",
 
+	"WEEK":			"Week",
+	"MONTH":		"Month",
+
 	"TITLE_STATS":	"Statistieken",
 	"TITLE_ABOUT":	"Samen werken we aan een betere stad",
 	"TITLE_CONTACT":"Contact",
@@ -30,6 +33,7 @@
 	"CATEGORY_3" : "Fietsenstalling",
 	"CATEGORY_4" : "Fietsinfrastructuur",
 	"CATEGORY_5" : "Andere",
+	"CATEGORY_6" : "Straatverlichting defect",
 
 	"PROBLEM_1": "Gat in het voetpad",
 	"PROBLEM_2": "Gat in het fietspad",
@@ -60,11 +64,16 @@
 	"PROBLEM_27": "Gevaarlijke situatie voor fietsers/voetgangers",
 	"PROBLEM_28": "Defecte/ontbrekende straatverlichting",
 	"PROBLEM_29": "Drukte op het voetpad",
-	"PROBLEM_30": "Andere"
+	"PROBLEM_30": "Andere",
+
+	"POBLEM_31": "Lamp defect",
+	"POBLEM_32": "Lamp blijft branden",
+	"POBLEM_33": "Lamp knippert",
+	"POBLEM_34": "Meerdere lampen blijven branden",
+	"POBLEM_35": "4 of meer opeenvolgende lampen defect",
+	"POBLEM_36": "Volledige straat zonder verlichting",
+	"POBLEM_37": "Ander defect"
 }
-
-
-
 
 
 

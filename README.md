@@ -22,7 +22,9 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
+* [Inout Structure](#structure)
 * [Usage](#usage)
+* [Security Note](#note)
 * [Contact](#contact)
 * [License](#license)
 * [Acknowledgements](#acknowledgements)
@@ -91,7 +93,7 @@ ln -s /etc/nginx/sites-available/roadreport.conf /etc/nginx/sites-enabled/roadre
 
 ### Installation
 
-1. Go on your SSH server et select the directory where you want install the website and the API
+1. Go on your SSH server et select the *empty* directory where you want install the website and the API
 ```sh
 cd /var/www/html
 ```
@@ -222,7 +224,11 @@ rm -r setup
 	```
 
 
-<!-- LICENSE -->
+<!-- NOTE -->
+## Note
+> **WARNING**: The report object doesn't include CSRF token or captcha system
+
+<!-- CONTACT -->
 ## Contact
 
 
