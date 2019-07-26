@@ -19,20 +19,20 @@
 
 		"my" => array(
 			"hostname" => "localhost",
-			"database" => "tmaas_database",
-			"username" => "tmaas_user",
-			"password" => "aM7xGyqIXi56V034",
+			"database" => "",
+			"username" => "",
+			"password" => "",
 			"instance" => null
 		),
 		"mail" => array(
-			"reportTo"	=> "contact@m-leroy.pro",
-			"from"		=> "osoc.tmaas@gmail.com",
+			"reportTo"	=> "",
+			"from"		=> "",
 			"SMTPDebug"	=> 0,
 			"isSMTP"	=> true,
-			"Host"		=> "smtp.googlemail.com",
+			"Host"		=> "",
 			"SMTPAuth"	=> true,
-			"Username"	=> "osoc.tmaas@gmail.com",
-			"Password"	=> "Ma48T9f1ByrX2Lg1",
+			"Username"	=> "",
+			"Password"	=> "",
 			"SMTPSecure"=> "ssl",
 			"CharSet"	=> "UTF-8",
 			"Encoding"	=> "base64",
@@ -41,7 +41,7 @@
 		),
 
 		"api" => array(
-			"mapbox"	=> "pk.eyJ1IjoibGExNzkzMzEiLCJhIjoiY2p5ZnhkbmtzMWdoeDNtbzNvdzM3YzF6cyJ9.-uSxvCtzNpKyv6WGCTnvkw"
+			"mapbox"	=> ""
 		)
 	);
 	?>
