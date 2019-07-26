@@ -98,6 +98,6 @@
 			if ($this->ctx == null)
 				return false;
 			if (!file_exists($path))
-				imagejpeg($this->ctx, $path, $quality);
+				imagejpeg($this->ctx, $path, $this->quality);
 		}
 	}

@@ -76,7 +76,11 @@
 									throw new Exception('No address provided, please select in the list');
 								$r = new Report($report['problem'], $report['comment'], $report['location'], $report['picture']);
 								echo '{"result":"success"}';
-								API::mail("contact@m-leroy.pro", "New report", $r);
+								global $settings;
+								API::mail(
+									$settings['mail']['reportTo'], 
+									$r->fillTags(API::getParam('email_object')), 
+									$r->fillTags(API::getParam('email_body')));
 							} catch (Exception $ex) {
 								echo Result::jsonError($ex->getMessage());
 							}
@@ -214,6 +218,31 @@
 			return $tmp;
 		}
 
+		public static function getParam($key)
+		{
+			$key = trim($key);
+			if (strtolower($key)=="dash_pass")
+				return "********************************";
+			$cxn = API::getConnection();
+			$q = $cxn->prepare("SELECT `v` FROM `params` WHERE `k` = :param LIMIT 1");
+			$q->bindParam(':param', $key, PDO::PARAM_STR);
+			$q->execute();
+			if ($r = $q->fetch(PDO::FETCH_ASSOC))
+				return $r['v'];
+			return null;
+		}
+
+		public static function setParam($key, $value)
+		{
+			if (!isset($_SESSION['logged'])||$_SESSION['logged']!==true||empty($key))
+				return false;
+			$cxn = API::getConnection();
+			$q = $cxn->prepare("UPDATE `params` SET `v` = :value WHERE `k` = :key LIMIT 1");
+			$q->bindParam(':key', $key, PDO::PARAM_STR);
+			$q->bindParam(':value', $value, PDO::PARAM_STR);
+			return $q->execute();
+		}
+
 		public static function getAPIKey($api)
 		{
 			global $settings;
@@ -239,6 +268,7 @@
 				return false;
 			global $settings;
 			$mail = $settings['mail']['instance'];
+			$message = nl2br($message);
 			if ($settings['mail']['instance'] == null)
 			{
 				$mail = new PHPMailer\PHPMailer\PHPMailer();

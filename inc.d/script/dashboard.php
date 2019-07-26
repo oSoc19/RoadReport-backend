@@ -102,7 +102,7 @@
 		nav {
 			background: #333;
 			display: grid;
-			grid-template: 48px 48px auto 48px/auto;
+			grid-template: 48px 48px 48px auto 48px/auto;
 			height: 100vh;
 			min-height: 100vh;
 			max-height: 100vh;
@@ -212,6 +212,7 @@
 	<nav>
 		<a href="/dashboard/area"><i class="material-icons">map</i><span>Map Area</span></a>
 		<a href="/dashboard/access"><i class="material-icons">lock_open</i><span>API Access</span></a>
+		<a href="/dashboard/params"><i class="material-icons">settings</i><span>Parameters</span></a>
 		<div class="nav-spacer"></div>
 		<a href="/dashboard/logout"><i class="material-icons">exit_to_app</i><span>Log Out</span></a>
 	</nav>
@@ -222,6 +223,9 @@
 		switch (strtolower($path[1])) {
 			case 'access':
 				include 'dashboard-access.php';
+				break;
+			case 'params':
+				include 'dashboard-params.php';
 				break;
 			case 'logout':
 				header("location: /dashboard");

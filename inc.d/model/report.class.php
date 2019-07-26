@@ -289,6 +289,55 @@ SQL;
 			$q->execute();
 			return $q->fetchAll(PDO::FETCH_ASSOC);
 		}
+		public function fillTags($str='')
+		{
+			//%REPORT_ID%, %REPORT_PROBLEM%, %REPORT_COMMENT%, %REPORT_DATE%, %REPORT_PICTURE%, %LOCATION_ID%, %LOCATION_STREET%, %LOCATION_NUMBER%, %LOCATION_CITY%, %LOCATION_LONG% and %LOCATION_LAT%.
+			preg_match_all("/%([A-Z0-9_]+)%/", $str, $r);
+			foreach ($r[1] as $k => $v)
+			{
+				$new = $v;
+				switch ($v) {
+					case 'REPORT_ID':
+						$new = $this->getID();
+						break;
+					case 'REPORT_PROBLEM':
+						$new = Lang::replaceTags($this->getProblemTagName(), 'en');
+						break;
+					case 'REPORT_COMMENT':
+						$new = $this->getComment();
+						break;
+					case 'REPORT_DATE':
+						$new = date(DATE_RFC3339, $this->getTime());
+						break;
+					case 'REPORT_PICTURE':
+						$new = '//'.$_SERVER['SERVER_NAME'].'/'.$this->getPicture();
+						break;
+					case 'LOCATION_ID':
+						$new = $this->getLocation();
+						break;
+					case 'LOCATION_STREET':
+						$new = $this->getLocation()->getStreet();
+						break;
+					case 'LOCATION_NUMBER':
+						$new = $this->getLocation()->getNumber();;
+						break;
+					case 'LOCATION_CITY':
+						$new = $this->getLocation()->getCity();
+						break;
+					case 'LOCATION_LONG':
+						$new = $this->getLocation()->getLongitude();
+						break;
+					case 'LOCATION_LAT':
+						$new = $this->getLocation()->getLatitude();
+						break;
+					case 'USER_EMAIL':
+						$new = isset($_POST['report'])&&isset($_POST['report']['email'])?htmlspecialchars($_POST['report']['email']):'no email';
+						break;
+				}
+				$str = str_replace("%{$v}%", $new, $str);
+			}
+			return $str;
+		}
 		public function getID()
 		{
 			return $this->rid;
@@ -349,6 +398,7 @@ SQL;
 			$i->bindParam(':picture', $this->picture_link, PDO::PARAM_STR, 54);
 			if ($i->execute())
 			{
+				$this->rid = $cxn->lastInsertId();
 				return true;
 			}
 			else
